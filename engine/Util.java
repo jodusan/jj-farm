@@ -1,4 +1,4 @@
-﻿package rafgfxlib;
+package engine;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -16,17 +16,17 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Set statičnih pomoćnih funkcija za rad sa grafikom 
- * @author Aleksandar Stančić
+ * Set stati?nih pomo?nih funkcija za rad sa grafikom 
+ * @author Aleksandar Stan?i?
  *
  */
 public class Util 
 {
 	/**
-	 * Kreira novi {@link WritableRaster} u RGB ili RGBA modu, nezavisan od postojećih slika.
-	 * @param width širina u pixelima
+	 * Kreira novi {@link WritableRaster} u RGB ili RGBA modu, nezavisan od postoje?ih slika.
+	 * @param width ?irina u pixelima
 	 * @param height Visina u pixelima
-	 * @param alpha Da li će imati alpha kanal (RGB/RGBA)
+	 * @param alpha Da li ?e imati alpha kanal (RGB/RGBA)
 	 * @return Novi {@link WritableRaster} objekat
 	 */
 	public static WritableRaster createRaster(int width, int height, boolean alpha)
@@ -44,9 +44,9 @@ public class Util
 	}
 	
 	/**
-	 * Kreira novu {@link BufferedImage} sliku, postavljajući joj sadržaj na zadati {@link WritableRaster}.
-	 * @param raster Raster sa željenim pixelima
-	 * @return {@link BufferedImage} objekat sa zadatim sadržajem
+	 * Kreira novu {@link BufferedImage} sliku, postavljaju?i joj sadr?aj na zadati {@link WritableRaster}.
+	 * @param raster Raster sa ?eljenim pixelima
+	 * @return {@link BufferedImage} objekat sa zadatim sadr?ajem
 	 */
 	public static BufferedImage rasterToImage(WritableRaster raster)
 	{
@@ -70,9 +70,9 @@ public class Util
 	}
 	
 	/**
-	 * Pretvara zadati raster u 3D float matricu, mapirajući RGB(A) vrijednosti
-	 * od 0 do 255 u opseg od 0 do 1. Matrica će biti dimenzija :
-	 * [širina u px] x [visina u px] x [3 ili 4 kanala]
+	 * Pretvara zadati raster u 3D float matricu, mapiraju?i RGB(A) vrijednosti
+	 * od 0 do 255 u opseg od 0 do 1. Matrica ?e biti dimenzija :
+	 * [?irina u px] x [visina u px] x [3 ili 4 kanala]
 	 * @param raster Raster u RGB ili RGBA formatu
 	 * @return 3D float matrica
 	 */
@@ -119,10 +119,10 @@ public class Util
 	}
 	
 	/**
-	 * Zapisuje 0-1 float matricu nazad u raster, mapirajući vrijednosti kanala
-	 * na cjelobrojni 0-255 opseg, clampujući vrijednosti iznad i ispod.
+	 * Zapisuje 0-1 float matricu nazad u raster, mapiraju?i vrijednosti kanala
+	 * na cjelobrojni 0-255 opseg, clampuju?i vrijednosti iznad i ispod.
 	 * @param fmap 3D float matrica (pogledati {@link rasterToFloatMap})
-	 * @param raster Raster u koji se vrši upis, mora se podudarati po dimenzijama i broju kanala
+	 * @param raster Raster u koji se vr?i upis, mora se podudarati po dimenzijama i broju kanala
 	 * @return Uspjeh operacije
 	 */
 	public static boolean writeFloatMapToRaster(float fmap[][][], WritableRaster raster)
@@ -199,14 +199,14 @@ public class Util
 	}
 	
 	/**
-	 * Rasterizacija matrice float vrijednosti u RGB(A) raster linearno interpolirajući između dvije RGB(A) boje.
+	 * Rasterizacija matrice float vrijednosti u RGB(A) raster linearno interpoliraju?i izme?u dvije RGB(A) boje.
 	 * @param fmap 2D float matrica
-	 * @param fmin minimum opsega float vrijednosti (one ispod će biti zaokružene na ovu)
-	 * @param fmax maksimum opsega float vrijednosti (one preko će biti zaokružene na ovu)
+	 * @param fmin minimum opsega float vrijednosti (one ispod ?e biti zaokru?ene na ovu)
+	 * @param fmax maksimum opsega float vrijednosti (one preko ?e biti zaokru?ene na ovu)
 	 * @param colMin boja koja odgovara fmin vrijednosti
 	 * @param colMax boja koja odgovara fmax vrijednosti
-	 * @param raster raster u koji će biti upisana slika
-	 * @return uspjeh operacije, false ako se dimenzije ne poklapaju ili raster nije podržanog tipa
+	 * @param raster raster u koji ?e biti upisana slika
+	 * @return uspjeh operacije, false ako se dimenzije ne poklapaju ili raster nije podr?anog tipa
 	 */
 	public static boolean mapFloatMapToRaster(float fmap[][], float fmin, float fmax, int[] colMin, int[] colMax, WritableRaster raster)
 	{
@@ -277,13 +277,13 @@ public class Util
 	}
 	
 	/**
-	 * Rasterizacija matrice float vrijednosti u RGB(A) raster linearno interpolirajući kroz gradijent (array) boja.
+	 * Rasterizacija matrice float vrijednosti u RGB(A) raster linearno interpoliraju?i kroz gradijent (array) boja.
 	 * @param fmap 2D float matrica
-	 * @param fmin minimum opsega float vrijednosti (one ispod će biti zaokružene na ovu)
-	 * @param fmax maksimum opsega float vrijednosti (one preko će biti zaokružene na ovu)
-	 * @param gradient niz RGB(A) boja koje će biti proporcionalno raspoređene u gradijent
-	 * @param raster raster u koji će biti upisana slika
-	 * @return uspjeh operacije, false ako se dimenzije ne poklapaju ili raster nije podržanog tipa
+	 * @param fmin minimum opsega float vrijednosti (one ispod ?e biti zaokru?ene na ovu)
+	 * @param fmax maksimum opsega float vrijednosti (one preko ?e biti zaokru?ene na ovu)
+	 * @param gradient niz RGB(A) boja koje ?e biti proporcionalno raspore?ene u gradijent
+	 * @param raster raster u koji ?e biti upisana slika
+	 * @return uspjeh operacije, false ako se dimenzije ne poklapaju ili raster nije podr?anog tipa
 	 */
 	public static boolean mapFloatMapViaGradient(float fmap[][], float fmin, float fmax, int[][] gradient, WritableRaster raster)
 	{
@@ -331,9 +331,9 @@ public class Util
 	}
 	
 	/**
-	 * Skalira jednu 2D float matricu u drugu, bilinearno interpolirajući vrijednosti
+	 * Skalira jednu 2D float matricu u drugu, bilinearno interpoliraju?i vrijednosti
 	 * @param source izvorna matrica
-	 * @param destination matrica u koju će biti upisane vrijednosti za njene dimenzije
+	 * @param destination matrica u koju ?e biti upisane vrijednosti za njene dimenzije
 	 */
 	public static void floatMapRescale(float[][] source, float[][] destination)
 	{
@@ -378,7 +378,7 @@ public class Util
 	 * 
 	 * @param source izvorne vrijednosti
 	 * @param destination matrica u koju se upisuje (mora biti istih dimenzija)
-	 * @param multiplier vrijednost kojom će svako polje biti pomnoženo prije sabiranja
+	 * @param multiplier vrijednost kojom ?e svako polje biti pomno?eno prije sabiranja
 	 */
 	public static void floatMapMAD(float[][] source, float[][] destination, float multiplier)
 	{
@@ -404,8 +404,8 @@ public class Util
 	}
 	
 	/**
-	 * Proizvodi niz boja (gradijent) od slike učitavajući sve boje iz njenog prvog reda
-	 * @param image slika proizvoljne veličine (samo prvi red piksela će biti upotrijebljen)
+	 * Proizvodi niz boja (gradijent) od slike u?itavaju?i sve boje iz njenog prvog reda
+	 * @param image slika proizvoljne veli?ine (samo prvi red piksela ?e biti upotrijebljen)
 	 * @return niz od image.getWidth() boja
 	 */
 	public static int[][] imageToGradient(BufferedImage image)
@@ -418,11 +418,11 @@ public class Util
 	}
 	
 	/**
-	 * Obavlja linearnu interpolaciju kroz niz boja (gradijent), gdje će za x = 0 rezultat biti boja 
-	 * na indeksu [0], a za x = 1 će biti [length - 1], sa interpoliranim rezultatima između. 
-	 * @param gradient niz boja proizvoljne dužine
+	 * Obavlja linearnu interpolaciju kroz niz boja (gradijent), gdje ?e za x = 0 rezultat biti boja 
+	 * na indeksu [0], a za x = 1 ?e biti [length - 1], sa interpoliranim rezultatima izme?u. 
+	 * @param gradient niz boja proizvoljne du?ine
 	 * @param x faktor za interpolaciju, od 0 do 1
-	 * @param result unaprijed alociran niz od bar 3 elementa (za RGB) u koji će biti upisan rezultat
+	 * @param result unaprijed alociran niz od bar 3 elementa (za RGB) u koji ?e biti upisan rezultat
 	 */
 	public static void gradientSample(int[][] gradient, float x, int[] result)
 	{
@@ -439,10 +439,10 @@ public class Util
 	}
 	
 	/**
-	 * Otvara "Open image" dijalog u kom korisnik može da odabere BMP, PNG, GIF ili JPEG sliku sa diska.
-	 * @param startingDir Početni direktorijum, može biti null
-	 * @param parentWindow Roditeljski prozor za dijalog, može biti null
-	 * @return {@link BufferedImage} slika ako je uspješno, inače null
+	 * Otvara "Open image" dijalog u kom korisnik mo?e da odabere BMP, PNG, GIF ili JPEG sliku sa diska.
+	 * @param startingDir Po?etni direktorijum, mo?e biti null
+	 * @param parentWindow Roditeljski prozor za dijalog, mo?e biti null
+	 * @return {@link BufferedImage} slika ako je uspje?no, ina?e null
 	 */
 	public static BufferedImage browseForImage(String startingDir, Component parentWindow)
 	{
@@ -481,9 +481,9 @@ public class Util
 	}
 	
 	/**
-	 * Učitava sliku sa zadate putanje i vraća je kao {@link BufferedImage} objekat.
+	 * U?itava sliku sa zadate putanje i vra?a je kao {@link BufferedImage} objekat.
 	 * @param fileName Putanja do slike
-	 * @return {@link BufferedImage} objekat sa zadatom slikom ako je uspje�no, inaće null
+	 * @return {@link BufferedImage} objekat sa zadatom slikom ako je uspje?no, ina?e null
 	 */
 	public static BufferedImage loadImage(String fileName)
 	{
@@ -522,7 +522,7 @@ public class Util
 	/**
 	 * Snima {@link BufferedImage} sliku iz memorije na disk u JPEG, BMP, GIF ili PNG formatu.
 	 * @param image {@link BufferedImage} objekat slika koju treba snimiti
-	 * @param fileName Naziv/putanja fajla, mora imati ekstenziju, upotrijebiće se za odabir formata.
+	 * @param fileName Naziv/putanja fajla, mora imati ekstenziju, upotrijebi?e se za odabir formata.
 	 * @return Uspjeh operacije
 	 */
 	public static boolean saveImage(BufferedImage image, String fileName)
@@ -555,11 +555,11 @@ public class Util
 	}
 	
 	/**
-	 * Prikazuje GUI dijalog za odabir boje, vraćajući odabranu boju kao RGB niz od 3 elementa. 
-	 * @param color ako je naveden niz, u njega će biti upisana boja, ako ne, preuzeti return vrijednost
+	 * Prikazuje GUI dijalog za odabir boje, vra?aju?i odabranu boju kao RGB niz od 3 elementa. 
+	 * @param color ako je naveden niz, u njega ?e biti upisana boja, ako ne, preuzeti return vrijednost
 	 * @param title naslov dijaloga
 	 * @param parent parent komponenta/prozor, ako postoji, smije biti null
-	 * @return vraća novi niz sa bojom, ili onaj proslijeđen kroz color parametar
+	 * @return vra?a novi niz sa bojom, ili onaj proslije?en kroz color parametar
 	 */
 	public static int[] pickColor(int[] color, String title, Component parent)
 	{
@@ -595,8 +595,8 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dva int broja
-	 * @param a počatak opsega
+	 * Linearna interpolacija (lerp) izme?u dva int broja
+	 * @param a po?atak opsega
 	 * @param b kraj opsega
 	 * @param x faktor od 0 do 1
 	 * @return interpolirana int vrijednost
@@ -607,8 +607,8 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dva float broja
-	 * @param a počatak opsega
+	 * Linearna interpolacija (lerp) izme?u dva float broja
+	 * @param a po?atak opsega
 	 * @param b kraj opsega
 	 * @param x faktor od 0 do 1
 	 * @return interpolirana float vrijednost
@@ -619,11 +619,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGB int boje
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGB int boje
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGB int niz u koji će se upisati rezultat
+	 * @param result RGB int niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBi(int[] a, int[] b, float x, int[] result)
 	{
@@ -633,11 +633,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGBA int boje
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGBA int boje
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGBA int niz u koji će se upisati rezultat
+	 * @param result RGBA int niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBAi(int[] a, int[] b, float x, int[] result)
 	{
@@ -648,11 +648,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGB int boje, sa float rezultatom
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGB int boje, sa float rezultatom
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGB float niz u koji će se upisati rezultat
+	 * @param result RGB float niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBif(int[] a, int[] b, float x, float[] result)
 	{
@@ -662,11 +662,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGBA int boje, sa float rezultatom
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGBA int boje, sa float rezultatom
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGBA float niz u koji će se upisati rezultat
+	 * @param result RGBA float niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBAif(int[] a, int[] b, float x, float[] result)
 	{
@@ -677,11 +677,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGB float boje
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGB float boje
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGB float niz u koji će se upisati rezultat
+	 * @param result RGB float niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBf(float[] a, float[] b, float x, float[] result)
 	{
@@ -691,11 +691,11 @@ public class Util
 	}
 	
 	/**
-	 * Linearna interpolacija (lerp) između dvije RGBA int boje
-	 * @param a početna boja
+	 * Linearna interpolacija (lerp) izme?u dvije RGBA int boje
+	 * @param a po?etna boja
 	 * @param b krajnja boja
 	 * @param x faktor od 0 do 1
-	 * @param result RGBA float niz u koji će se upisati rezultat
+	 * @param result RGBA float niz u koji ?e se upisati rezultat
 	 */
 	public static void lerpRGBAf(float[] a, float[] b, float x, float[] result)
 	{
@@ -708,7 +708,7 @@ public class Util
 	/**
 	 * Konverzija standardnog Java Color objekta u RGB int niz
 	 * @param c boja koja se konvertuje
-	 * @return int[3] niz koji sadrži RGB vrijednosti
+	 * @return int[3] niz koji sadr?i RGB vrijednosti
 	 */
 	public static int[] colorToArray(Color c)
 	{
@@ -722,7 +722,7 @@ public class Util
 	/**
 	 * Konverzija standardnog Java Color objekta u RGBA int niz
 	 * @param c boja koja se konvertuje
-	 * @return int[4] niz koji sadrži RGBA vrijednosti
+	 * @return int[4] niz koji sadr?i RGBA vrijednosti
 	 */
 	public static int[] colorToArrayA(Color c)
 	{
@@ -735,8 +735,8 @@ public class Util
 	}
 	
 	/**
-	 * Ograničava vrijednosti iz int[3] niza na opseg 0 - 255
-	 * @param color niz koji će biti ograničen
+	 * Ograni?ava vrijednosti iz int[3] niza na opseg 0 - 255
+	 * @param color niz koji ?e biti ograni?en
 	 */
 	public static void clampRGB(int[] color)
 	{
@@ -749,8 +749,8 @@ public class Util
 	}
 	
 	/**
-	 * Ograničava vrijednosti iz int[4] niza na opseg 0 - 255
-	 * @param color niz koji će biti ograničen
+	 * Ograni?ava vrijednosti iz int[4] niza na opseg 0 - 255
+	 * @param color niz koji ?e biti ograni?en
 	 */
 	public static void clampRGBA(int[] color)
 	{
@@ -765,12 +765,12 @@ public class Util
 	}
 	
 	/**
-	 * Radi point sample (nearest-neighbour) nad rasterom, birajući boju na osnovu zaokruženih (u, v)
+	 * Radi point sample (nearest-neighbour) nad rasterom, biraju?i boju na osnovu zaokru?enih (u, v)
 	 * koordinata, sa automatskom provjerom opsega (clamp-to-edge).
-	 * @param src raster iz kog se čita
+	 * @param src raster iz kog se ?ita
 	 * @param u horizontalna (X) koordinata u pikselima
 	 * @param v vertikalna (Y) koordinata u pikselima
-	 * @param color niz u koji će biti upisana pročitana boja
+	 * @param color niz u koji ?e biti upisana pro?itana boja
 	 */
 	public static void pointSample(WritableRaster src, float u, float v, int[] color)
 	{
@@ -784,12 +784,12 @@ public class Util
 	}
 	
 	/**
-	 * Radi bilinearni sample nad RGB rasterom, interpolirajući boju na osnovu (u, v)
+	 * Radi bilinearni sample nad RGB rasterom, interpoliraju?i boju na osnovu (u, v)
 	 * koordinata, sa automatskom provjerom opsega (clamp-to-edge).
-	 * @param src raster iz kog se čita
+	 * @param src raster iz kog se ?ita
 	 * @param u horizontalna (X) koordinata u pikselima
 	 * @param v vertikalna (Y) koordinata u pikselima
-	 * @param color niz u koji će biti upisana interpolirana boja
+	 * @param color niz u koji ?e biti upisana interpolirana boja
 	 */
 	public static void bilSample(WritableRaster src, float u, float v, int[] color)
 	{
@@ -835,12 +835,12 @@ public class Util
 	}
 	
 	/**
-	 * Radi bilinearni sample nad RGBA rasterom, interpolirajući boju na osnovu (u, v)
+	 * Radi bilinearni sample nad RGBA rasterom, interpoliraju?i boju na osnovu (u, v)
 	 * koordinata, sa automatskom provjerom opsega (clamp-to-edge).
-	 * @param src raster iz kog se čita
+	 * @param src raster iz kog se ?ita
 	 * @param u horizontalna (X) koordinata u pikselima
 	 * @param v vertikalna (Y) koordinata u pikselima
-	 * @param color niz u koji će biti upisana interpolirana boja
+	 * @param color niz u koji ?e biti upisana interpolirana boja
 	 */
 	public static void bilSampleA(WritableRaster src, float u, float v, int[] color)
 	{
@@ -888,7 +888,7 @@ public class Util
 	
 	/**
 	 * Sabire RGB vrijednosti, po principu: base += addition
-	 * @param base početna vrijednost, na koju se sabire
+	 * @param base po?etna vrijednost, na koju se sabire
 	 * @param addition sabirak
 	 */
 	public static void addRGB(int[] base, int[] addition)
@@ -900,7 +900,7 @@ public class Util
 	
 	/**
 	 * Sabire dvije RGBA vrijednosti, po principu: base += addition
-	 * @param base početna vrijednost, na koju se sabire
+	 * @param base po?etna vrijednost, na koju se sabire
 	 * @param addition sabirak
 	 */
 	public static void addRGBA(int[] base, int[] addition)
@@ -913,7 +913,7 @@ public class Util
 	
 	/**
 	 * Dijeli RGB vrijednost skalarom, po principu: base /= divider
-	 * @param base početna vrijednost, koja se dijeli
+	 * @param base po?etna vrijednost, koja se dijeli
 	 * @param divider djelilac
 	 */
 	public static void divideRGB(int[] base, int divider)
@@ -925,7 +925,7 @@ public class Util
 	
 	/**
 	 * Dijeli RGBA vrijednost skalarom, po principu: base /= divider
-	 * @param base početna vrijednost, koja se dijeli
+	 * @param base po?etna vrijednost, koja se dijeli
 	 * @param divider djelilac
 	 */
 	public static void divideRGBA(int[] base, int divider)
@@ -937,8 +937,8 @@ public class Util
 	}
 	
 	/**
-	 * Množi RGB vrijednost skalarom, po principu: base *= multiplier
-	 * @param base početna vrijednost, koja se množi
+	 * Mno?i RGB vrijednost skalarom, po principu: base *= multiplier
+	 * @param base po?etna vrijednost, koja se mno?i
 	 * @param multiplier faktor
 	 */
 	public static void multiplyRGB(int[] base, float multiplier)
@@ -949,8 +949,8 @@ public class Util
 	}
 	
 	/**
-	 * Množi RGBA vrijednost skalarom, po principu: base *= multiplier
-	 * @param base početna vrijednost, koja se množi
+	 * Mno?i RGBA vrijednost skalarom, po principu: base *= multiplier
+	 * @param base po?etna vrijednost, koja se mno?i
 	 * @param multiplier faktor
 	 */
 	public static void multiplyRGBA(int[] base, float multiplier)
@@ -962,11 +962,11 @@ public class Util
 	}
 	
 	/**
-	 * Dijeli zadatu sliku na određen broj jednakih blokova (tiles) vraćajući ih kao 1D niz slika,
-	 * pročitan iz prvobitne slike left-to-right, top-to-bottom.
+	 * Dijeli zadatu sliku na odre?en broj jednakih blokova (tiles) vra?aju?i ih kao 1D niz slika,
+	 * pro?itan iz prvobitne slike left-to-right, top-to-bottom.
 	 * @param numX broj blokova po horizontali
 	 * @param numY broj blokova po vertikali
-	 * @param sheet izvorna slika, veličina bloka se računa iz nje i numX, numY vrijednosti
+	 * @param sheet izvorna slika, veli?ina bloka se ra?una iz nje i numX, numY vrijednosti
 	 * @return 1D niz slika
 	 */
 	public static BufferedImage[] cutTiles1D(int numX, int numY, BufferedImage sheet)
@@ -988,11 +988,11 @@ public class Util
 	}
 	
 	/**
-	 * Dijeli zadatu sliku na određen broj jednakih blokova (tiles) vraćajući ih kao 2D matricu slika,
-	 * pročitan iz prvobitne slike left-to-right, top-to-bottom.
+	 * Dijeli zadatu sliku na odre?en broj jednakih blokova (tiles) vra?aju?i ih kao 2D matricu slika,
+	 * pro?itan iz prvobitne slike left-to-right, top-to-bottom.
 	 * @param numX broj blokova po horizontali
 	 * @param numY broj blokova po vertikali
-	 * @param sheet izvorna slika, veličina bloka se računa iz nje i numX, numY vrijednosti
+	 * @param sheet izvorna slika, veli?ina bloka se ra?una iz nje i numX, numY vrijednosti
 	 * @return 2D matrica slika, [red][kolona]
 	 */
 	public static BufferedImage[][] cutTiles2D(int numX, int numY, BufferedImage sheet)

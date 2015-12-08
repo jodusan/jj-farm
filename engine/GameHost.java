@@ -1,30 +1,16 @@
-﻿package rafgfxlib;
+package engine;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 /**
- * Glavni objekat za složenije aplikacije, koje će imati više odvojenih stanja. Treba ga
+ * Glavni objekat za slo?enije aplikacije, koje ?e imati vi?e odvojenih stanja. Treba ga
  * instancirati samo jednom, ovaj objekat je vlasnik prozora i preko njega se postavlja
- * trenutno aktivno stanje, koje će onda da bude pozivano za ažuriranje i iscrtavanje, te
- * će samo ono dobijati input događaje.
+ * trenutno aktivno stanje, koje ?e onda da bude pozivano za a?uriranje i iscrtavanje, te
+ * ?e samo ono dobijati input doga?aje.
  * @author Aleksandar
  *
  */
@@ -77,12 +63,12 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	private boolean gameRunning = true;
 	
 	/**
-	 * Glavni objekat za složenije aplikacije, koje će imati više odvojenih stanja. Treba ga
+	 * Glavni objekat za slo?enije aplikacije, koje ?e imati vi?e odvojenih stanja. Treba ga
 	 * instancirati samo jednom, ovaj objekat je vlasnik prozora i preko njega se postavlja
-	 * trenutno aktivno stanje, koje će onda da bude pozivano za ažuriranje i iscrtavanje, te
-	 * će samo ono dobijati input događaje.
+	 * trenutno aktivno stanje, koje ?e onda da bude pozivano za a?uriranje i iscrtavanje, te
+	 * ?e samo ono dobijati input doga?aje.
 	 * @param title naslov prozora
-	 * @param sizeX širina prostora za crtanje u pikselima
+	 * @param sizeX ?irina prostora za crtanje u pikselima
 	 * @param sizeY visina prostora za crtanje u pikselima
 	 */
 	public GameHost(String title, int sizeX, int sizeY)
@@ -165,9 +151,9 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Vraća prijavljene GameState objekte po nazivu
-	 * @param name naziv koji traženi GameState daje u getName() pozivu
-	 * @return referenca na GameState ako je nađen, ili null ako nije
+	 * Vra?a prijavljene GameState objekte po nazivu
+	 * @param name naziv koji tra?eni GameState daje u getName() pozivu
+	 * @return referenca na GameState ako je na?en, ili null ako nije
 	 */
 	public GameState getState(String name)
 	{
@@ -188,7 +174,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	
 	/**
 	 * Prelazak na novo stanje, po nazivu
-	 * @param stateName naziv stanja, kako ga vraća njegova getName() metoda
+	 * @param stateName naziv stanja, kako ga vra?a njegova getName() metoda
 	 */
 	public void setState(String stateName)
 	{
@@ -205,9 +191,9 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Traženje reference na bilo koje od trneutno prijavljenih stanja
-	 * @param name naziv stanja, kako ga vraća njegova getName() metoda
-	 * @return referenca ako je stanje pronađeno, null ako nije
+	 * Tra?enje reference na bilo koje od trneutno prijavljenih stanja
+	 * @param name naziv stanja, kako ga vra?a njegova getName() metoda
+	 * @return referenca ako je stanje prona?eno, null ako nije
 	 */
 	public GameState getStateByName(String name)
 	{
@@ -215,7 +201,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Prijavljuje stanje na ovaj Host, ovo *ne bi trebalo ručno raditi*, jer
+	 * Prijavljuje stanje na ovaj Host, ovo *ne bi trebalo ru?no raditi*, jer
 	 * se prijavljivanje radi u konstruktoru stanja.
 	 * @param state referenca na stanje koje se registruje
 	 */
@@ -284,7 +270,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Metod koji programski prekida izvršavanje aplikacije čim se trenutni frejm završi.
+	 * Metod koji programski prekida izvr?avanje aplikacije ?im se trenutni frejm zavr?i.
 	 */
 	public void exit()
 	{
@@ -292,9 +278,9 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Metod koji daje širinu prostora za crtanje, pošto prozor nije resizable, treba
+	 * Metod koji daje ?irinu prostora za crtanje, po?to prozor nije resizable, treba
 	 * biti ista vrijednost koja je zadata i u konstruktoru.
-	 * @return širina u pikselima
+	 * @return ?irina u pikselima
 	 */
 	public int getWidth()
 	{
@@ -302,7 +288,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Metod koji daje visinu prostora za crtanje, pošto prozor nije resizable, treba
+	 * Metod koji daje visinu prostora za crtanje, po?to prozor nije resizable, treba
 	 * biti ista vrijednost koja je zadata i u konstruktoru.
 	 * @return visina u pikselima
 	 */
@@ -312,13 +298,13 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Metod koji će da iscrta zadato stanje, ali u off-screen sliku, umjesto na ekran.
-	 * Obratiti pažnju da se ovo ne pozove iz render() metode istog stanja, jer bi to
-	 * izazvalo beskonačnu rekurziju.
-	 * @param canvas objekat slike u koju će se crtati, može biti null, pa će nova slika biti alocirana;
-	 * ako se ovo radi često, bolje je imati jednu unaprijed alociranu sliku koja će se reciklirati.
-	 * @param state stanje koje se treba iscrtati, biće pozvan njegov render() metod
-	 * @return vraća referencu na proslijeđenu ili novokonstruisanu sliku, u koju je iscrtano stanje
+	 * Metod koji ?e da iscrta zadato stanje, ali u off-screen sliku, umjesto na ekran.
+	 * Obratiti pa?nju da se ovo ne pozove iz render() metode istog stanja, jer bi to
+	 * izazvalo beskona?nu rekurziju.
+	 * @param canvas objekat slike u koju ?e se crtati, mo?e biti null, pa ?e nova slika biti alocirana;
+	 * ako se ovo radi ?esto, bolje je imati jednu unaprijed alociranu sliku koja ?e se reciklirati.
+	 * @param state stanje koje se treba iscrtati, bi?e pozvan njegov render() metod
+	 * @return vra?a referencu na proslije?enu ili novokonstruisanu sliku, u koju je iscrtano stanje
 	 */
 	public BufferedImage renderSnapshot(BufferedImage canvas, GameState state)
 	{
@@ -470,8 +456,8 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Upit trenutnog stanja tastera miša, putem GFMouseButton enuma
-	 * @param button taster za koje se upit vrši
+	 * Upit trenutnog stanja tastera mi?a, putem GFMouseButton enuma
+	 * @param button taster za koje se upit vr?i
 	 * @return true ako je taster pritisnut, false ako nije
 	 */
 	public boolean isMouseButtonDown(GFMouseButton button)
@@ -502,8 +488,8 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Pali ili gasi automatsko čišćenje pozadine prije render() poziva
-	 * @param clr true za automatsko brisanje, sa false se prethodna slika zadržava  
+	 * Pali ili gasi automatsko ?i??enje pozadine prije render() poziva
+	 * @param clr true za automatsko brisanje, sa false se prethodna slika zadr?ava  
 	 */
 	public void setBackgroundClear(boolean clr)
 	{
@@ -511,7 +497,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Boja na koju će biti postavljena pozadina, ako je setBackgroundClear uključeno
+	 * Boja na koju ?e biti postavljena pozadina, ako je setBackgroundClear uklju?eno
 	 * @param c boja pozadine
 	 */
 	public void setBackgroundClearColor(Color c)
@@ -520,7 +506,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Trenutna horizontalna pozicija kursora miša u prostoru za crtanje
+	 * Trenutna horizontalna pozicija kursora mi?a u prostoru za crtanje
 	 * @return X koordinata kursora u pikselima
 	 */
 	public int getMouseX()
@@ -529,7 +515,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Trenutna vertikalna pozicija kursora miša u prostoru za crtanje
+	 * Trenutna vertikalna pozicija kursora mi?a u prostoru za crtanje
 	 * @return Y koordinata kursora u pikselima
 	 */
 	public int getMouseY()
@@ -538,9 +524,9 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Postavlja hint za viši kvalitet iscrtavanja koji će se onda automatski primjenjivati
+	 * Postavlja hint za vi?i kvalitet iscrtavanja koji ?e se onda automatski primjenjivati
 	 * nad Graphics2D objektom koji se daje u render() metodi
-	 * @param hq true za viši kvalitet interpolacije i uključen anti-aliasing primitiva
+	 * @param hq true za vi?i kvalitet interpolacije i uklju?en anti-aliasing primitiva
 	 */
 	public void setHighQuality(boolean hq)
 	{
@@ -549,7 +535,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	
 	/**
 	 * Postavlja ikonicu prozora
-	 * @param icon Image objekat (može biti BufferedImage)
+	 * @param icon Image objekat (mo?e biti BufferedImage)
 	 */
 	public void setIcon(Image icon)
 	{
@@ -557,11 +543,11 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Postavlja ciljnu frekvenciju ažuriranja u Hz/fps. Tajming je realizovan jednostavnim
-	 * sleep metodama, zbog čega je moguć neravnomijeran tok izvršavanja (judder). Ukoliko
-	 * ažuriranje i iscrtavanje traje duže od (1 / fps) sekundi, svukupan tempo izvršavanja
-	 * će se usporiti na tu brzinu, nije implementiran nikakav dinamički update ili frameskipping.  
-	 * @param fps ciljni broj ažuriranih i iscrtanih okvira u sekundi, od 1 do 120
+	 * Postavlja ciljnu frekvenciju a?uriranja u Hz/fps. Tajming je realizovan jednostavnim
+	 * sleep metodama, zbog ?ega je mogu? neravnomijeran tok izvr?avanja (judder). Ukoliko
+	 * a?uriranje i iscrtavanje traje du?e od (1 / fps) sekundi, svukupan tempo izvr?avanja
+	 * ?e se usporiti na tu brzinu, nije implementiran nikakav dinami?ki update ili frameskipping.  
+	 * @param fps ciljni broj a?uriranih i iscrtanih okvira u sekundi, od 1 do 120
 	 */
 	public void setUpdateRate(int fps)
 	{
@@ -576,7 +562,7 @@ MouseWheelListener, MouseMotionListener, KeyListener
 	}
 	
 	/**
-	 * Vraća ciljnu frekvenciju ažuriranja u Hz/fps
+	 * Vra?a ciljnu frekvenciju a?uriranja u Hz/fps
 	 * @return frekvencija u Hz
 	 */
 	public int getUpdateRate()

@@ -1,28 +1,14 @@
-﻿package rafgfxlib;
+package engine;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
- * Klasa namijenjena jednostavnim grafičkim eksperimentima i demonstracijama. Koristi se
- * nasljeđivanjem i popunjavanjem apstraktnih metoda poput update() i render(), uz
- * metode koje obrađuju input događaje, ako je potrebna interakcija.
- * @author Aleksandar Stančić
+ * Klasa namijenjena jednostavnim grafi?kim eksperimentima i demonstracijama. Koristi se
+ * naslje?ivanjem i popunjavanjem apstraktnih metoda poput update() i render(), uz
+ * metode koje obra?uju input doga?aje, ako je potrebna interakcija.
+ * @author Aleksandar Stan?i?
  *
  */
 public abstract class GameFrame extends JPanel implements MouseListener, 
@@ -68,9 +54,9 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	private boolean[] keyboardKeys = new boolean[1024];
 	
 	/**
-	 * Konstruktor za GameFrame, koji se mora pozvati iz naslijeđenih klasa
+	 * Konstruktor za GameFrame, koji se mora pozvati iz naslije?enih klasa
 	 * @param title naslov prozora
-	 * @param sizeX širina u pikselima
+	 * @param sizeX ?irina u pikselima
 	 * @param sizeY visina u pikselima
 	 */
 	public GameFrame(String title, int sizeX, int sizeY)
@@ -124,9 +110,9 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Početak rada glavnog threada koji poziva update() i render() metoda, mora
-	 * se pozvati kako bi aplikacija počela sa radom, najbolje na kraju naslijeđenog
-	 * konstruktora, nakon što se svi resursi učitaju i pripreme.
+	 * Po?etak rada glavnog threada koji poziva update() i render() metoda, mora
+	 * se pozvati kako bi aplikacija po?ela sa radom, najbolje na kraju naslije?enog
+	 * konstruktora, nakon ?to se svi resursi u?itaju i pripreme.
 	 */
 	public void startThread()
 	{
@@ -143,7 +129,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	
 	/**
 	 * Inicijalizacija prozora (JFrame) u kome se nalazi panel igre, potrebno pozvati
-	 * nakon završetka konstruktora.
+	 * nakon zavr?etka konstruktora.
 	 */
 	public void initGameWindow()
 	{
@@ -305,8 +291,8 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Daje trenutni status tipki miša 
-	 * @param button dugme iz GFMouseButton enuma za koje se traži status
+	 * Daje trenutni status tipki mi?a 
+	 * @param button dugme iz GFMouseButton enuma za koje se tra?i status
 	 * @return true ako je pritisnuta, false ako nije
 	 */
 	protected boolean isMouseButtonDown(GFMouseButton button)
@@ -316,7 +302,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	
 	/**
 	 * Daje trenutni status tipki tastature 
-	 * @param keyCode konstanta iz KeyEvent koja određuje tipku
+	 * @param keyCode konstanta iz KeyEvent koja odre?uje tipku
 	 * @return true ako je pritisnuta, false ako nije
 	 */
 	protected boolean isKeyDown(int keyCode)
@@ -346,7 +332,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Postavlja boju na koju će pozadina biti postavljena, ako je uključen setBackgroundClear
+	 * Postavlja boju na koju ?e pozadina biti postavljena, ako je uklju?en setBackgroundClear
 	 * @param c boja
 	 */
 	protected void setBackgroundClearColor(Color c)
@@ -355,7 +341,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Trenutna X koordinata miša, u prostoru panela za crtanje
+	 * Trenutna X koordinata mi?a, u prostoru panela za crtanje
 	 * @return X koordinata
 	 */
 	protected int getMouseX()
@@ -364,7 +350,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Trenutna Y koordinata miša, u prostoru panela za crtanje
+	 * Trenutna Y koordinata mi?a, u prostoru panela za crtanje
 	 * @return Y koordinata
 	 */
 	protected int getMouseY()
@@ -373,9 +359,9 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Postavlja hint za viši kvalitet iscrtavanja koji će se onda automatski primjenjivati
+	 * Postavlja hint za vi?i kvalitet iscrtavanja koji ?e se onda automatski primjenjivati
 	 * nad Graphics2D objektom koji se daje u render() metodi
-	 * @param hq true za viši kvalitet interpolacije i uključen anti-aliasing primitiva
+	 * @param hq true za vi?i kvalitet interpolacije i uklju?en anti-aliasing primitiva
 	 */
 	protected void setHighQuality(boolean hq)
 	{
@@ -384,7 +370,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	
 	/**
 	 * Postavlja ikonicu prozora
-	 * @param icon Image objekat (može biti BufferedImage)
+	 * @param icon Image objekat (mo?e biti BufferedImage)
 	 */
 	protected void setIcon(Image icon)
 	{
@@ -392,11 +378,11 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Postavlja ciljnu frekvenciju ažuriranja u Hz/fps. Tajming je realizovan jednostavnim
-	 * sleep metodama, zbog čega je moguć neravnomijeran tok izvršavanja (judder). Ukoliko
-	 * ažuriranje i iscrtavanje traje duže od (1 / fps) sekundi, svukupan tempo izvršavanja
-	 * će se usporiti na tu brzinu, nije implementiran nikakav dinamički update ili frameskipping.  
-	 * @param fps ciljni broj ažuriranih i iscrtanih okvira u sekundi, od 1 do 120
+	 * Postavlja ciljnu frekvenciju a?uriranja u Hz/fps. Tajming je realizovan jednostavnim
+	 * sleep metodama, zbog ?ega je mogu? neravnomijeran tok izvr?avanja (judder). Ukoliko
+	 * a?uriranje i iscrtavanje traje du?e od (1 / fps) sekundi, svukupan tempo izvr?avanja
+	 * ?e se usporiti na tu brzinu, nije implementiran nikakav dinami?ki update ili frameskipping.  
+	 * @param fps ciljni broj a?uriranih i iscrtanih okvira u sekundi, od 1 do 120
 	 */
 	protected void setUpdateRate(int fps)
 	{
@@ -411,47 +397,47 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	}
 	
 	/**
-	 * Metod će biti pozvan prilikom initGameWindow() poziva, nakon što je prozor konstruisan.
+	 * Metod ?e biti pozvan prilikom initGameWindow() poziva, nakon ?to je prozor konstruisan.
 	 */
 	public abstract void handleWindowInit();
 	
 	/**
-	 * Poziva se prilikom gašenja prozora (ako je korisnik kliknuo na X)
+	 * Poziva se prilikom ga?enja prozora (ako je korisnik kliknuo na X)
 	 */
 	public abstract void handleWindowDestroy();
 	
 	/**
 	 * Metod koji treba da obavi kompletno iscrtavanje cijelog frejma, poziva se automatski,
-	 * zadatom frekvencijom (update rate). Ne treba da sadrži nikakva logička ažuriranja, samo crtanje.
+	 * zadatom frekvencijom (update rate). Ne treba da sadr?i nikakva logi?ka a?uriranja, samo crtanje.
 	 * @param g Graphics2D objekat preko koga se obavlja crtanje na ekran
-	 * @param sw širina trenutnog prostora za crtanje
+	 * @param sw ?irina trenutnog prostora za crtanje
 	 * @param sh visina trenutnog prostora za crtanje
 	 */
 	public abstract void render(Graphics2D g, int sw, int sh);
 	
 	/**
-	 * Metod koji treba da ažurira stanje igre, poziva se prije render() poziva, jednakom frekvencijom.
+	 * Metod koji treba da a?urira stanje igre, poziva se prije render() poziva, jednakom frekvencijom.
 	 */
 	public abstract void update();
 	
 	/**
-	 * Metod koji će biti pozvan na pritisak tastera miša (okretanja scroll točka se takođe smatraju tasterima) 
+	 * Metod koji ?e biti pozvan na pritisak tastera mi?a (okretanja scroll to?ka se tako?e smatraju tasterima) 
 	 * @param x X koordinata u pikselima na kojima je kursor bio u trenutku pritiska
 	 * @param y Y koordinata u pikselima na kojima je kursor bio u trenutku pritiska
-	 * @param button dugme miša koje je pritisnuto, iz GFMouseButton enuma
+	 * @param button dugme mi?a koje je pritisnuto, iz GFMouseButton enuma
 	 */
 	public abstract void handleMouseDown(int x, int y, GFMouseButton button);
 	
 	/**
-	 * Metod koji će biti pozvan na puštanje tastera miša (okretanja scroll točka se takođe smatraju tasterima) 
-	 * @param x X koordinata u pikselima na kojima je kursor bio u trenutku puštanja
-	 * @param y Y koordinata u pikselima na kojima je kursor bio u trenutku puštanja
-	 * @param button dugme miša koje je pušteno, iz GFMouseButton enuma
+	 * Metod koji ?e biti pozvan na pu?tanje tastera mi?a (okretanja scroll to?ka se tako?e smatraju tasterima) 
+	 * @param x X koordinata u pikselima na kojima je kursor bio u trenutku pu?tanja
+	 * @param y Y koordinata u pikselima na kojima je kursor bio u trenutku pu?tanja
+	 * @param button dugme mi?a koje je pu?teno, iz GFMouseButton enuma
 	 */
 	public abstract void handleMouseUp(int x, int y, GFMouseButton button);
 	
 	/**
-	 * Metod koji se poziva pri svakoj promjeni pozicije kursora miša, bez obzira da li su tasteri pritisnuti.
+	 * Metod koji se poziva pri svakoj promjeni pozicije kursora mi?a, bez obzira da li su tasteri pritisnuti.
 	 * @param x X koordinata kursora u pikselima
 	 * @param y Y koordinata kursora u pikselima
 	 */
@@ -464,8 +450,8 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 	public abstract void handleKeyDown(int keyCode);
 	
 	/**
-	 * Metod koji se poziva kada je pušteni taster na tastaturi.
-	 * @param keyCode kod tipke koja je puštena, porediti sa vrijednostima iz KeyEvent.VK_*
+	 * Metod koji se poziva kada je pu?teni taster na tastaturi.
+	 * @param keyCode kod tipke koja je pu?tena, porediti sa vrijednostima iz KeyEvent.VK_*
 	 */
 	public abstract void handleKeyUp(int keyCode);
 }
