@@ -3,6 +3,7 @@ package game;
 import engine.GameFrame;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by dusan on 12/8/15.
@@ -17,12 +18,14 @@ public class FlappyBird extends GameFrame {
      */
 
     Bird testPtica;
+    Tube tube1 = new Tube();
 
     public FlappyBird(String title, int sizeX, int sizeY) {
         super(title, sizeX, sizeY);
         setHighQuality(true);
         testPtica = new Bird();
         startThread();
+
     }
 
     @Override
@@ -36,13 +39,16 @@ public class FlappyBird extends GameFrame {
     }
 
     @Override
-    public void render(Graphics2D g, int sw, int sh) {
+    public void render(Graphics2D g, int sw, int sh)
+    {
         testPtica.render(g);
+        tube1.render(g);
     }
 
     @Override
     public void update() {
-
+        testPtica.update();
+        tube1.update();
     }
 
     @Override
@@ -62,16 +68,22 @@ public class FlappyBird extends GameFrame {
 
     @Override
     public void handleKeyDown(int keyCode) {
-
+        if(keyCode == KeyEvent.VK_SPACE)
+        {
+            testPtica.flap();
+        }
     }
 
     @Override
     public void handleKeyUp(int keyCode) {
-
+        if(keyCode == KeyEvent.VK_SPACE)
+        {
+            testPtica.readyFlap();
+        }
     }
 
     public static void main(String[] args) {
-        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024, 768);
+        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024, 420);
         game.initGameWindow();
     }
 }
