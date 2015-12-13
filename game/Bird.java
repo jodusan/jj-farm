@@ -1,6 +1,5 @@
 package game;
 
-import javafx.scene.transform.Affine;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

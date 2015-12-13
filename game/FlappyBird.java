@@ -84,6 +84,9 @@ public class FlappyBird extends GameFrame {
 
     public static void main(String[] args) {
         FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024, 420);
+        game.setHighQuality(true);
+        game.setDoubleBuffered(true);
+        game.setUpdateRate(30);
         game.initGameWindow();
     }
 }
