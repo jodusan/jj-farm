@@ -1,7 +1,6 @@
 package game;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,7 +8,7 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * Created by dusan on 12/8/15.
+ * Tube spawn and draw class
  */
 class Tube {
     private int pillarNum=6;
@@ -31,8 +30,8 @@ class Tube {
         try {
             pillar1 = ImageIO.read(new File("assets/tube1.png"));
             pillar2 = ImageIO.read(new File("assets/tube2.png"));
-        } catch (IOException e) {
-            System.out.println("GOCHA!");
+        } catch (IOException UP) {
+            System.out.println("Throws up!");
         }
         for(int i=0;i<pillarNum;i++)
         {
@@ -53,7 +52,7 @@ class Tube {
 
         for(int i=0;i<pillarNum;i++){
             xPos[i]-=7;
-            if(xPos[i]<=-176)
+            if(xPos[i]<=-172)
             {
                 xPos[i]=1024;
                 yPos[i]=randY();

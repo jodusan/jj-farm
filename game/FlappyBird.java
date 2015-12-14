@@ -6,24 +6,17 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by dusan on 12/8/15.
+ * Main Game class
  */
 public class FlappyBird extends GameFrame {
-    /**
-     * Konstruktor za GameFrame, koji se mora pozvati iz naslijeđenih klasa
-     *
-     * @param title naslov prozora
-     * @param sizeX širina u pikselima
-     * @param sizeY visina u pikselima
-     */
 
-    private Bird testPtica;
+    private Bird testBird;
     private Tube tube1 = new Tube();
 
-    private FlappyBird(String title, int sizeX) {
+    private FlappyBird() {
         super("JJFarms finest chicken", 1024, 420);
         setHighQuality(true);
-        testPtica = new Bird();
+        testBird = new Bird();
         startThread();
 
     }
@@ -41,13 +34,13 @@ public class FlappyBird extends GameFrame {
     @Override
     public void render(Graphics2D g, int sw, int sh)
     {
-        testPtica.render(g);
+        testBird.render(g);
         tube1.render(g);
     }
 
     @Override
     public void update() {
-        testPtica.update();
+        testBird.update();
         tube1.update();
     }
 
@@ -70,7 +63,7 @@ public class FlappyBird extends GameFrame {
     public void handleKeyDown(int keyCode) {
         if(keyCode == KeyEvent.VK_SPACE)
         {
-            testPtica.flap();
+            testBird.flap();
         }
     }
 
@@ -78,12 +71,12 @@ public class FlappyBird extends GameFrame {
     public void handleKeyUp(int keyCode) {
         if(keyCode == KeyEvent.VK_SPACE)
         {
-            testPtica.readyFlap();
+            testBird.readyFlap();
         }
     }
 
     public static void main(String[] args) {
-        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024);
+        FlappyBird game = new FlappyBird();
         game.setHighQuality(true);
         game.setDoubleBuffered(true);
         game.initGameWindow();

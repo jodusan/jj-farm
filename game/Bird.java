@@ -13,17 +13,15 @@ class Bird {
     private int yPos=160;
     private int currImg=0;
     private int delay=0;
-    private double imgScale=1.5;
     boolean dead;
     private boolean flapReady=false;
-    private double jumpVelocity = 3;
     private double velocity=-5;
-    private BufferedImage birdImage=null;
     private BufferedImage[] birdImages=null;
 
     Bird()
     {
 
+        BufferedImage birdImage = null;
         try {
             birdImage = ImageIO.read(new File("assets/bird.png"));
         } catch (IOException e) {
@@ -32,14 +30,15 @@ class Bird {
 
         birdImages = new BufferedImage[]
                 {
-                        upscale(birdImage.getSubimage(0,0,36,26)),
+                        upscale(birdImage.getSubimage(0, 0, 36, 26)),
                         upscale(birdImage.getSubimage(36, 0, 36, 26)),
-                        upscale(birdImage.getSubimage(72,0,36,26))
+                        upscale(birdImage.getSubimage(72, 0, 36, 26))
                 };
 
-        birdImages[0] = toBufferedImage(birdImages[0].getScaledInstance((int)(birdImages[0].getWidth()/imgScale),(int)(birdImages[0].getHeight()/imgScale),1));
-        birdImages[1] = toBufferedImage(birdImages[1].getScaledInstance((int)(birdImages[1].getWidth()/imgScale),(int)(birdImages[1].getHeight()/imgScale),1));
-        birdImages[2] = toBufferedImage(birdImages[2].getScaledInstance((int)(birdImages[2].getWidth()/imgScale),(int)(birdImages[2].getHeight()/imgScale),1));
+        double imgScale = 1.5;
+        birdImages[0] = toBufferedImage(birdImages[0].getScaledInstance((int)(birdImages[0].getWidth()/ imgScale),(int)(birdImages[0].getHeight()/ imgScale),1));
+        birdImages[1] = toBufferedImage(birdImages[1].getScaledInstance((int)(birdImages[1].getWidth()/ imgScale),(int)(birdImages[1].getHeight()/ imgScale),1));
+        birdImages[2] = toBufferedImage(birdImages[2].getScaledInstance((int)(birdImages[2].getWidth()/ imgScale),(int)(birdImages[2].getHeight()/ imgScale),1));
 
     }
     private double linearInterpolation(double a, double b, double f)
@@ -75,7 +74,8 @@ class Bird {
             velocity-=1;
         if(velocity>0)
         {
-            yPos-=jumpVelocity*velocity;
+            double jumpVelocity = 3;
+            yPos-= jumpVelocity *velocity;
 
         }
         else
