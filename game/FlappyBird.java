@@ -17,11 +17,11 @@ public class FlappyBird extends GameFrame {
      * @param sizeY visina u pikselima
      */
 
-    Bird testPtica;
-    Tube tube1 = new Tube();
+    private Bird testPtica;
+    private Tube tube1 = new Tube();
 
-    public FlappyBird(String title, int sizeX, int sizeY) {
-        super(title, sizeX, sizeY);
+    private FlappyBird(String title, int sizeX) {
+        super("JJFarms finest chicken", 1024, 420);
         setHighQuality(true);
         testPtica = new Bird();
         startThread();
@@ -83,10 +83,9 @@ public class FlappyBird extends GameFrame {
     }
 
     public static void main(String[] args) {
-        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024, 420);
+        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024);
         game.setHighQuality(true);
         game.setDoubleBuffered(true);
-        game.setUpdateRate(30);
         game.initGameWindow();
     }
 }

@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class GameHost implements MouseListener, 
 MouseWheelListener, MouseMotionListener, KeyListener
 {
-	public static enum GFMouseButton
+	public enum GFMouseButton
 	{
 		None,
 		Left,
@@ -321,17 +321,17 @@ MouseWheelListener, MouseMotionListener, KeyListener
 		
 		if(useHQ) 
 		{
-			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
 		else
 		{
-			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-			((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		}
 		
 		if(state != null)
-			state.render((Graphics2D)g, screenX, screenY);
+			state.render(g, screenX, screenY);
 		
 		return canvas;
 	}

@@ -16,7 +16,7 @@ public abstract class GameFrame extends JPanel implements MouseListener,
 {
 	private static final long serialVersionUID = 6058915663486070170L;
 
-	public static enum GFMouseButton
+	public enum GFMouseButton
 	{
 		None,
 		Left,

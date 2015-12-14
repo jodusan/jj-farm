@@ -11,12 +11,12 @@ import java.util.Random;
 /**
  * Created by dusan on 12/8/15.
  */
-public class Tube {
-    int pillarNum=6;
-    int xPos[]=new int[pillarNum];
-    int yPos[]=new int[pillarNum];
-    int gapDistance=120;
-    int offset=200;
+class Tube {
+    private int pillarNum=6;
+    private int[] xPos=new int[pillarNum];
+    private int[] yPos=new int[pillarNum];
+    private int gapDistance=120;
+    private int offset=200;
     private BufferedImage pillar1=null;
     private BufferedImage pillar2=null;
 

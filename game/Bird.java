@@ -8,20 +8,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Bird {
-    int xPos=100;
-    int yPos=160;
-    int currImg=0;
-    int delay=0;
-    int jumpDuration=3;
-    double imgScale=1.5;
+class Bird {
+    private int xPos=100;
+    private int yPos=160;
+    private int currImg=0;
+    private int delay=0;
+    private double imgScale=1.5;
     boolean dead;
-    boolean flapReady=false;
-    double jumpVelocity = 3;
-    double velocity=-5;
-    double angle;
-    BufferedImage birdImage=null;
-    BufferedImage birdImages[]=null;
+    private boolean flapReady=false;
+    private double jumpVelocity = 3;
+    private double velocity=-5;
+    private BufferedImage birdImage=null;
+    private BufferedImage[] birdImages=null;
 
     Bird()
     {
@@ -44,7 +42,7 @@ public class Bird {
         birdImages[2] = toBufferedImage(birdImages[2].getScaledInstance((int)(birdImages[2].getWidth()/imgScale),(int)(birdImages[2].getHeight()/imgScale),1));
 
     }
-    double lerp(double a, double b, double f)
+    private double linearInterpolation(double a, double b, double f)
     {
         return a + f * (b - a);
     }
@@ -54,7 +52,7 @@ public class Bird {
 
         AffineTransform at = new AffineTransform();
         at.translate(xPos,yPos);
-        at.rotate(lerp(Math.PI/2-0.3,-Math.PI/2,(((double)velocity)+15)/21));
+        at.rotate(linearInterpolation(Math.PI / 2 - 0.3, -Math.PI / 2, (velocity + 15) / 21));
         at.translate(-birdImages[0].getWidth()/2,-birdImages[0].getHeight()/2);
 
         if(velocity>0)
@@ -96,7 +94,6 @@ public class Bird {
     {
         if(flapReady)
         {
-            //jumpDuration=5;
             velocity=6;
             flapReady=false;
         }
