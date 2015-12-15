@@ -26,7 +26,7 @@ public class FlappyBird extends GameFrame {
 
 
     Bird testPtica;
-    Tube tube1 = new Tube();
+    Tube tubes = new Tube();
     Ground ground = new Ground();
     Timer timer;
     Resources res;
@@ -57,14 +57,14 @@ public class FlappyBird extends GameFrame {
 
         g.drawImage(Resources.BACKGROUND_IMAGE, 0, 0, 1280, 720 , null);
         testPtica.render(g);
-        tube1.render(g);
+        tubes.render(g);
         ground.render(g);
     }
 
     @Override
     public void update() {
         testPtica.update();
-        tube1.update();
+        tubes.update();
         ground.update();
     }
 

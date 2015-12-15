@@ -31,7 +31,7 @@ public class Ground {
             xPos[i]-=3;
             if(xPos[i]<=-Resources.FLOOR_WIDTH)
             {
-                xPos[i]=1280;
+                xPos[i]=1344;
             }
         }
 
