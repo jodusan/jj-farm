@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Bird {
-    int xPos = 100;
-    int yPos = 160;
+    int xPos = Resources.BIRD_XPOS;
+    int yPos = 100;
     int currImg = 0;
     int delay = 0;
     int jumpDuration=3;
@@ -58,12 +58,11 @@ public class Bird {
 
         AffineTransform at = new AffineTransform();
         at.translate(xPos,yPos);
-        at.rotate(lerp(Math.PI/2-0.3,-Math.PI/2,(((double)velocity)+15)/21));
+        at.rotate(lerp(Math.PI / 2 - 0.3, -Math.PI / 2, (((double) velocity) + 15) / 21));
         at.translate(-birdImages[0].getWidth()/2,-birdImages[0].getHeight()/2);
 
         if(velocity>0)
         {
-
             g.drawImage(birdImages[currImg],at,null);
             if(delay>2)
             {
@@ -73,9 +72,13 @@ public class Bird {
             delay++;
         }
         else g.drawImage(birdImages[1],at,null);
+
+        g.setColor(Color.RED);
+        g.drawRect(xPos,yPos,2,2);
     }
 
     public void update() {
+        System.out.println(yPos);
         if(velocity>=-15)
             velocity-=1;
         if(velocity>0)
@@ -88,7 +91,37 @@ public class Bird {
             //velocity=-10;
             yPos-=velocity;
         }
+        if(Resources.IN_TUBE)
+        {
+            int leftBird = Resources.BIRD_XPOS;
+            int rightBird = Resources.BIRD_XPOS + Resources.BIRD_WIDTH;
+            int leftTube = (int) Resources.CURRENT_TUBE.getX();
+            int rightTube = (int) Resources.CURRENT_TUBE.getX() + Resources.TUBE_WIDTH;
+            if ((leftBird <= rightTube && leftBird >= leftTube) || (rightBird <= rightTube && rightBird >= leftTube))
+            {
+                System.out.println("upade");
+                int topTube=(int)Resources.CURRENT_TUBE.getY()+Resources.TUBE_HEIGHT;
+                int bottomTube = topTube+Resources.TUBE_GAP_DISTANCE;
+                int topBird = yPos-Resources.BIRD_HEIGHT/2;
+                int bottomBird = topBird+Resources.BIRD_HEIGHT;
+                // (yPos > Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT && yPos < Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE)
+                if (topTube<topBird && bottomBird<bottomTube)
+                {
+                    System.out.println("ITS ALIVEEE!");
+                }
+                else
+                {
+                    dead = true;
+                    System.out.println("Muerte :(");
 
+                }
+                System.out.println("Top tube:"+ topTube+" Bottom Tube:"+bottomTube+" Top bird:" + topBird + " Bottom Bird: "+ bottomBird);
+            }
+            else
+            {
+                Resources.IN_TUBE = false;
+            }
+        }
     }
     public void readyFlap()
     {
@@ -99,9 +132,8 @@ public class Bird {
     {
         if(true)
         {
-            //jumpDuration=5;
             velocity=6;
-            //flapReady=false;
+            flapReady=false;
         }
     }
 

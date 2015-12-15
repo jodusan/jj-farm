@@ -1,5 +1,6 @@
 package game;
 
+import javax.print.DocFlavor;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -10,7 +11,7 @@ public class Tube {
     int xPos[]=new int[pillarNum];
     int yPos[]=new int[pillarNum];
 
-    int gapDistance=160;
+    int gapDistance=Resources.TUBE_GAP_DISTANCE;
     int offset=300;
 
 
@@ -21,7 +22,8 @@ public class Tube {
     private int randY()
     {
         Random r = new Random();
-        return r.nextInt(300)-560;
+        //return r.nextInt(300)-560;
+        return -350;
     }
 
     public Tube()
@@ -42,20 +44,29 @@ public class Tube {
     }
 
     public void update() {
-
+        boolean InTube=false;
         for(int i=0;i<pillarNum;i++){
-            xPos[i]-=1;
+            xPos[i]-=3;
+            int leftBird=Resources.BIRD_XPOS;
+            int rightBird=Resources.BIRD_XPOS+Resources.BIRD_WIDTH;
+            int leftTube=xPos[i];
+            int rightTube=xPos[i]+Resources.TUBE_WIDTH;
+            if( (leftBird<=rightTube&&leftBird>=leftTube) || (rightBird<=rightTube && rightBird >= leftTube))
+            {
+                Resources.CURRENT_TUBE.setLocation(xPos[i],yPos[i]);
+                Resources.IN_TUBE=true;
+                System.out.println(i);
+                InTube=true;
+            }
             if(xPos[i]<=-(300-Resources.TUBE_WIDTH))
             {
                 xPos[i]=1605;
                 yPos[i]=randY();
             }
         }
-    }
-
-    public Point nearestTube() {
-
-
-        return
+        if(InTube==false)
+        {
+            Resources.IN_TUBE=false;
+        }
     }
 }

@@ -23,7 +23,7 @@ public abstract class GameFrame extends JPanel
 	private Color backColor = Color.black;
 	private boolean clearBackBuffer = true;
 
-	private int updateRate = 120;
+	private int updateRate = 60;
 	private boolean updatesRunning = true;
 	private boolean renderRunning = true;
 

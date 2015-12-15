@@ -17,7 +17,7 @@ class SayHello extends TimerTask {
     }
     public void run() {
         int a = p.nextInt(2);
-        if(a >0) {
+        if(true) {
             this.birdie.flap();
         }
     }
@@ -37,7 +37,7 @@ public class FlappyBird extends GameFrame {
 
         startThread();
         Timer timer = new Timer();
-        timer.schedule(new SayHello(testPtica), 0, 250);
+        timer.schedule(new SayHello(testPtica), 0, 278);
     }
 
     @Override
