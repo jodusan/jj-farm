@@ -1,8 +1,10 @@
 package game;
 
 import engine.GameFrame;
+import engine.GameFrameBolji;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.Timer;
@@ -22,7 +24,7 @@ class SayHello extends TimerTask {
         }
     }
 }
-public class FlappyBird extends GameFrame {
+public class FlappyBird extends GameFrameBolji {
 
 
     Bird testPtica;
@@ -68,8 +70,37 @@ public class FlappyBird extends GameFrame {
         ground.update();
     }
 
+    @Override
+    public void handleMouseDown(int x, int y, GFMouseButton button) {
 
-//    @Override
+    }
+
+    @Override
+    public void handleMouseUp(int x, int y, GFMouseButton button) {
+
+    }
+
+    @Override
+    public void handleMouseMove(int x, int y) {
+
+    }
+
+    @Override
+    public void handleKeyDown(int keyCode) {
+        if(keyCode == KeyEvent.VK_SPACE) {
+            testPtica.readyFlap();
+        }
+    }
+
+    @Override
+    public void handleKeyUp(int keyCode) {
+        if(keyCode == KeyEvent.VK_SPACE) {
+            testPtica.flap();
+        }
+    }
+
+
+    //    @Override
 //    public void handleKeyDown(int keyCode) {
 //        if(keyCode == KeyEvent.VK_SPACE)
 //        {
@@ -97,6 +128,7 @@ public class FlappyBird extends GameFrame {
     }
     public static void main(String[] args) {
         FlappyBird game = new FlappyBird("JJFarms finest chicken", 1280, 720);
+        game.setUpdateRate(60);
         game.setDoubleBuffered(true);
         game.initGameWindow();
     }

@@ -18,7 +18,7 @@ public class Bird {
     boolean dead;
     boolean flapReady=false;
     double jumpVelocity = 3;
-    double velocity=-5;
+    double velocity=-2.5;
     double angle;
     BufferedImage birdImage=null;
     BufferedImage birdImages[]=null;
@@ -78,9 +78,8 @@ public class Bird {
     }
 
     public void update() {
-        System.out.println(yPos);
         if(velocity>=-15)
-            velocity-=1;
+            velocity-=0.5;
         if(velocity>0)
         {
             yPos-=jumpVelocity*velocity;
@@ -115,7 +114,6 @@ public class Bird {
                     System.out.println("Muerte :(");
 
                 }
-                System.out.println("Top tube:"+ topTube+" Bottom Tube:"+bottomTube+" Top bird:" + topBird + " Bottom Bird: "+ bottomBird);
             }
             else
             {
@@ -125,16 +123,16 @@ public class Bird {
     }
     public void readyFlap()
     {
-        flapReady=true;
+        if(flapReady)
+        {
+            flapReady=false;
+            velocity=4;
+        }
     }
 
     public void flap()
     {
-        if(true)
-        {
-            velocity=6;
-            flapReady=false;
-        }
+        flapReady=true;
     }
 
     private static BufferedImage upscale(final Image image) {
