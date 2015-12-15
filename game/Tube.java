@@ -1,24 +1,23 @@
 package game;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
 
 public class Tube {
-    int pillarNum=6;
+    int pillarNum=4;
     int xPos[]=new int[pillarNum];
     int yPos[]=new int[pillarNum];
-    int gapDistance=120;
+
+    int gapDistance=160;
     int offset=400;
 
 
 
-    private BufferedImage pillar1=null;
-    private BufferedImage pillar2=null;
+    private BufferedImage pillar1 = Resources.TUBE_UP_IMAGE;
+    private BufferedImage pillar2 = Resources.TUBE_DOWN_IMAGE;
+    private BufferedImage ground = Resources.GROUND_IMAGE;
 
     private int randY()
     {
@@ -28,12 +27,6 @@ public class Tube {
 
     public Tube()
     {
-        try {
-            pillar1 = ImageIO.read(new File("assets/tube1.png"));
-            pillar2 = ImageIO.read(new File("assets/tube2.png"));
-        } catch (IOException e) {
-            System.out.println("GOCHA!");
-        }
         for(int i=0;i<pillarNum;i++)
         {
             xPos[i]=1024+i*offset;
@@ -47,6 +40,8 @@ public class Tube {
             g.drawImage(pillar1, xPos[i], yPos[i], Resources.TUBE_WIDTH, Resources.TUBE_HEIGHT, null);
             g.drawImage(pillar2, xPos[i], yPos[i] + Resources.TUBE_HEIGHT + gapDistance, Resources.TUBE_WIDTH, Resources.TUBE_HEIGHT, null);
         }
+        g.drawImage(ground, 0, Resources.HEIGHT - 100, Resources.FLOOR_WIDTH, Resources.FLOOR_HEIGHT, null);
+        g.drawImage(ground, Resources.FLOOR_WIDTH - 1, Resources.HEIGHT - 100, Resources.FLOOR_WIDTH, Resources.FLOOR_HEIGHT, null);
     }
 
     public void update() {

@@ -27,6 +27,7 @@ public class FlappyBird extends GameFrame {
 
     Bird testPtica;
     Tube tube1 = new Tube();
+    Ground ground = new Ground();
     Timer timer;
     Resources res;
     public FlappyBird(String title, int sizeX, int sizeY) {
@@ -54,15 +55,17 @@ public class FlappyBird extends GameFrame {
     {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.drawImage(Resources.BACKGROUND_IMAGE, 0, 0, 576, 768 , null);
+        g.drawImage(Resources.BACKGROUND_IMAGE, 0, 0, 1280, 720 , null);
         testPtica.render(g);
         tube1.render(g);
+        ground.render(g);
     }
 
     @Override
     public void update() {
         testPtica.update();
         tube1.update();
+        ground.update();
     }
 
 
