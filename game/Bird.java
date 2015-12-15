@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Bird {
-    int xPos=100;
-    int yPos=160;
-    int currImg=0;
-    int delay=0;
+    int xPos = 100;
+    int yPos = 160;
+    int currImg = 0;
+    int delay = 0;
     int jumpDuration=3;
     double imgScale=1.5;
     boolean dead;
@@ -32,14 +32,18 @@ public class Bird {
             e.printStackTrace();
         }
 
-        birdImages = new BufferedImage[]
-                {
-                        upscale(birdImage.getSubimage(0,0,36,26)),
-                        upscale(birdImage.getSubimage(36, 0, 36, 26)),
-                        upscale(birdImage.getSubimage(72,0,36,26))
-                };
+        birdImages = new BufferedImage[] {
+                upscale(birdImage.getSubimage(0,0,36,26)),
+                upscale(birdImage.getSubimage(36, 0, 36, 26)),
+                upscale(birdImage.getSubimage(72,0,36,26))
+        };
 
-        birdImages[0] = toBufferedImage(birdImages[0].getScaledInstance((int)(birdImages[0].getWidth()/imgScale),(int)(birdImages[0].getHeight()/imgScale),1));
+        birdImages[0] = toBufferedImage(birdImages[0].getScaledInstance(
+                (int)(birdImages[0].getWidth()/imgScale),
+                (int)(birdImages[0].getHeight()/imgScale),
+                1)
+        );
+
         birdImages[1] = toBufferedImage(birdImages[1].getScaledInstance((int)(birdImages[1].getWidth()/imgScale),(int)(birdImages[1].getHeight()/imgScale),1));
         birdImages[2] = toBufferedImage(birdImages[2].getScaledInstance((int)(birdImages[2].getWidth()/imgScale),(int)(birdImages[2].getHeight()/imgScale),1));
 
@@ -72,7 +76,6 @@ public class Bird {
     }
 
     public void update() {
-
         if(velocity>=-15)
             velocity-=1;
         if(velocity>0)
@@ -94,11 +97,11 @@ public class Bird {
 
     public void flap()
     {
-        if(flapReady)
+        if(true)
         {
             //jumpDuration=5;
             velocity=6;
-            flapReady=false;
+            //flapReady=false;
         }
     }
 

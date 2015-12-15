@@ -1,22 +1,22 @@
 package game;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-/**
- * Created by dusan on 12/8/15.
- */
+
 public class Tube {
     int pillarNum=6;
     int xPos[]=new int[pillarNum];
     int yPos[]=new int[pillarNum];
     int gapDistance=120;
-    int offset=200;
+    int offset=400;
+
+
+
     private BufferedImage pillar1=null;
     private BufferedImage pillar2=null;
 
@@ -44,15 +44,15 @@ public class Tube {
     public void render(Graphics2D g) {
         for(int i=0;i<pillarNum;i++)
         {
-            g.drawImage(pillar1, xPos[i], yPos[i], null);
-            g.drawImage(pillar2, xPos[i], yPos[i] + pillar1.getHeight() + gapDistance, null);
+            g.drawImage(pillar1, xPos[i], yPos[i], Resources.TUBE_WIDTH, Resources.TUBE_HEIGHT, null);
+            g.drawImage(pillar2, xPos[i], yPos[i] + Resources.TUBE_HEIGHT + gapDistance, Resources.TUBE_WIDTH, Resources.TUBE_HEIGHT, null);
         }
     }
 
     public void update() {
 
         for(int i=0;i<pillarNum;i++){
-            xPos[i]-=7;
+            xPos[i]-=1;
             if(xPos[i]<=-176)
             {
                 xPos[i]=1024;

@@ -3,29 +3,40 @@ package game;
 import engine.GameFrame;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-/**
- * Created by dusan on 12/8/15.
- */
+class SayHello extends TimerTask {
+    Bird birdie;
+    Random p;
+    SayHello(Bird birdie) {
+        this.birdie = birdie;
+        p = new Random();
+    }
+    public void run() {
+        int a = p.nextInt(2);
+        if(a >0) {
+            this.birdie.flap();
+        }
+    }
+}
 public class FlappyBird extends GameFrame {
-    /**
-     * Konstruktor za GameFrame, koji se mora pozvati iz naslijeđenih klasa
-     *
-     * @param title naslov prozora
-     * @param sizeX širina u pikselima
-     * @param sizeY visina u pikselima
-     */
+
 
     Bird testPtica;
     Tube tube1 = new Tube();
-
+    Timer timer;
+    Resources res;
     public FlappyBird(String title, int sizeX, int sizeY) {
         super(title, sizeX, sizeY);
-        setHighQuality(true);
         testPtica = new Bird();
-        startThread();
+        Resources.getInstance();
 
+        startThread();
+        Timer timer = new Timer();
+        timer.schedule(new SayHello(testPtica), 0, 250);
     }
 
     @Override
@@ -41,6 +52,9 @@ public class FlappyBird extends GameFrame {
     @Override
     public void render(Graphics2D g, int sw, int sh)
     {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.drawImage(Resources.BACKGROUND_IMAGE, 0, 0, 576, 768 , null);
         testPtica.render(g);
         tube1.render(g);
     }
@@ -51,42 +65,36 @@ public class FlappyBird extends GameFrame {
         tube1.update();
     }
 
-    @Override
-    public void handleMouseDown(int x, int y, GFMouseButton button) {
 
+//    @Override
+//    public void handleKeyDown(int keyCode) {
+//        if(keyCode == KeyEvent.VK_SPACE)
+//        {
+//            testPtica.flap();
+//        }
+//    }
+//
+//    @Override
+//    public void handleKeyUp(int keyCode) {
+//        if(keyCode == KeyEvent.VK_SPACE)
+//        {
+//            testPtica.readyFlap();
+//        }
+//    }
+    private static BufferedImage upscale(final Image image) {
+        return toBufferedImage(image.getScaledInstance(image.getWidth(null) * 2,
+                image.getHeight(null) * 2, Image.SCALE_FAST));
     }
 
-    @Override
-    public void handleMouseUp(int x, int y, GFMouseButton button) {
-
+    private static BufferedImage toBufferedImage(final Image image) {
+        final BufferedImage buffered = new BufferedImage(image.getWidth(null),
+                image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        buffered.getGraphics().drawImage(image, 0, 0, null);
+        return buffered;
     }
-
-    @Override
-    public void handleMouseMove(int x, int y) {
-
-    }
-
-    @Override
-    public void handleKeyDown(int keyCode) {
-        if(keyCode == KeyEvent.VK_SPACE)
-        {
-            testPtica.flap();
-        }
-    }
-
-    @Override
-    public void handleKeyUp(int keyCode) {
-        if(keyCode == KeyEvent.VK_SPACE)
-        {
-            testPtica.readyFlap();
-        }
-    }
-
     public static void main(String[] args) {
-        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1024, 420);
-        game.setHighQuality(true);
+        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1280, 720);
         game.setDoubleBuffered(true);
-        game.setUpdateRate(30);
         game.initGameWindow();
     }
 }
