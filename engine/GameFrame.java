@@ -55,7 +55,10 @@ public abstract class GameFrame extends JPanel
                     if(sleepTime > 0)
                         Thread.sleep(sleepTime);
                 }
-                catch (InterruptedException e) { }
+                catch (InterruptedException e)
+				{
+					System.out.println("You done fucked up");
+				}
             }
         });
 
@@ -145,7 +148,7 @@ public abstract class GameFrame extends JPanel
 
 
     /*---------------------------------------------------------
-     *  Sets backround color
+     *  Sets background color
      *---------------------------------------------------------*/
 	protected void setBackgroundClearColor(Color c)
 	{
@@ -165,7 +168,7 @@ public abstract class GameFrame extends JPanel
     /*---------------------------------------------------------
      *  Sets refresh rate ( Hz/fps )
      *  Timing is made with simple sleep methods which can
-     *  cause judder. No dynamic update or frameskipping.
+     *  cause judder. No dynamic update or frame skipping.
      *---------------------------------------------------------*/
 	protected void setUpdateRate(int fps)
 	{

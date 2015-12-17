@@ -1,6 +1,5 @@
 package game;
 
-import engine.GameFrame;
 import engine.GameFrameBolji;
 
 import java.awt.*;
@@ -32,8 +31,8 @@ public class FlappyBird extends GameFrameBolji {
     Ground ground = new Ground();
     Timer timer;
     Resources res;
-    public FlappyBird(String title, int sizeX, int sizeY) {
-        super(title, sizeX, sizeY);
+    public FlappyBird(int sizeX, int sizeY) {
+        super("JJFarms finest chicken", 1280, 720);
         testPtica = new Bird();
         Resources.getInstance();
 
@@ -127,7 +126,7 @@ public class FlappyBird extends GameFrameBolji {
         return buffered;
     }
     public static void main(String[] args) {
-        FlappyBird game = new FlappyBird("JJFarms finest chicken", 1280, 720);
+        FlappyBird game = new FlappyBird(1280, 720);
         game.setUpdateRate(60);
         game.setDoubleBuffered(true);
         game.initGameWindow();

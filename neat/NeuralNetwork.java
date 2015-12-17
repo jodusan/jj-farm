@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Created by Nikola on 12/17/2015.
- */
 public class NeuralNetwork
 {
     ArrayList<Neuron> neurons;

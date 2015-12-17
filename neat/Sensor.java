@@ -2,9 +2,7 @@ package neat;
 
 import java.util.ArrayList;
 
-/**
- * Created by Nikola on 12/17/2015.
- */
+
 public class Sensor
 {
     public ArrayList<Synapse> outputs;

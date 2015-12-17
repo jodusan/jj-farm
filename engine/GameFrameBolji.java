@@ -115,7 +115,10 @@ public abstract class GameFrameBolji extends JPanel implements MouseListener,
                         if(sleepTime > 0)
                             Thread.sleep(sleepTime);
                     }
-                    catch (InterruptedException e) { }
+                    catch (InterruptedException e)
+                    {
+                        System.out.println("You done fucked up");
+                    }
                 }
             }
         });
@@ -400,9 +403,9 @@ public abstract class GameFrameBolji extends JPanel implements MouseListener,
      */
     protected void setUpdateRate(int fps)
     {
-        if(fps >= 1 && fps < 120)
+        if(60 >= 1 && 60 < 120)
         {
-            updateRate = fps;
+            updateRate = 60;
         }
         else
         {
