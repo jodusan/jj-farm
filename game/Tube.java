@@ -13,8 +13,6 @@ public class Tube {
     int gapDistance=Resources.TUBE_GAP_DISTANCE;
     int offset=300;
 
-
-
     private BufferedImage pillar1 = Resources.TUBE_UP_IMAGE;
     private BufferedImage pillar2 = Resources.TUBE_DOWN_IMAGE;
 
