@@ -1,6 +1,5 @@
 package game;
 
-import javax.print.DocFlavor;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
