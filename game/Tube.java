@@ -21,8 +21,7 @@ public class Tube {
     private int randY()
     {
         Random r = new Random();
-        //return r.nextInt(300)-560;
-        return -350;
+        return r.nextInt(300)-560;
     }
 
     public Tube()
@@ -46,8 +45,8 @@ public class Tube {
         boolean InTube=false;
         for(int i=0;i<pillarNum;i++){
             xPos[i]-=3;
-            int leftBird=Resources.BIRD_XPOS;
-            int rightBird=Resources.BIRD_XPOS+Resources.BIRD_WIDTH;
+            int leftBird=Resources.BIRD_X_POSITION;
+            int rightBird=Resources.BIRD_X_POSITION +Resources.BIRD_WIDTH;
             int leftTube=xPos[i];
             int rightTube=xPos[i]+Resources.TUBE_WIDTH;
             if( (leftBird<=rightTube&&leftBird>=leftTube) || (rightBird<=rightTube && rightBird >= leftTube))
