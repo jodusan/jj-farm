@@ -30,6 +30,12 @@ public class NeuralNetwork
         while (!nextElement.isEmpty())
         {
             Neuron currentElement = nextElement.poll();
+            currentElement.value=0;
+            for(Synapse in : currentElement.inputs)
+            {
+                currentElement.value += in.weight*in.neuron.value;
+            }
+            currentElement.value = currentElement.sigmoid(currentElement.value);
             for(Synapse sn : currentElement.outputs)
             {
                 if(!visited.contains(sn.neuron))
@@ -40,4 +46,5 @@ public class NeuralNetwork
             }
         }
     }
+
 }

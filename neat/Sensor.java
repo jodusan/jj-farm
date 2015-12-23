@@ -14,4 +14,5 @@ public class Sensor
         this.name = name;
         this.input = input;
     }
+
 }
