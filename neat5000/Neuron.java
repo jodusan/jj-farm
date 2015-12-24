@@ -2,7 +2,6 @@ package neat5000;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Neuron {
     private ArrayList<Synapse> inputs;

@@ -1,6 +1,6 @@
 package neat5000;
 
-public class Synapse {
+public class Synapse implements Cloneable {
     private Neuron sourceNeuron;
     private Neuron destinationNeuron;
     private double weight;
@@ -10,6 +10,7 @@ public class Synapse {
         this.destinationNeuron = destinationNeuron;
         this.weight = weight;
     }
+
 
     public Neuron getSourceNeuron() {
         return this.sourceNeuron;
