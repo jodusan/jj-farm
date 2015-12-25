@@ -12,11 +12,11 @@ public class Synapse implements Cloneable {
     }
 
 
-    public Neuron getSourceNeuron() {
+    public Neuron getSource() {
         return this.sourceNeuron;
     }
 
-    public Neuron getDestinationNeuron() { return this.destinationNeuron; }
+    public Neuron getDestination() { return this.destinationNeuron; }
 
     public double getWeight() {
         return this.weight;

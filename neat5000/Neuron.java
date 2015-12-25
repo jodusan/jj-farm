@@ -10,14 +10,14 @@ public class Neuron {
     private double output;
 
     public Neuron() {
-        inputs = new ArrayList<Synapse>();
+        inputs = new ArrayList<>();
     }
 
 
     public void calculateWeightedSum() {
         weightedSum = 0;
         for(Synapse synapse : inputs) {
-            weightedSum += synapse.getWeight() * synapse.getSourceNeuron().getOutput();
+            weightedSum += synapse.getWeight() * synapse.getSource().getOutput();
         }
     }
 
