@@ -97,28 +97,22 @@ public abstract class GameFrameBolji extends JPanel implements MouseListener,
         addMouseWheelListener(this);
         addKeyListener(this);
 
-        runnerThread = new Thread(new Runnable()
-        {
-
-            @Override
-            public void run()
+        runnerThread = new Thread(() -> {
+            while(true)
             {
-                while(true)
+                long startTime = System.currentTimeMillis();
+                if(updatesRunning) tick();
+                if(renderRunning) repaint();
+                try
                 {
-                    long startTime = System.currentTimeMillis();
-                    if(updatesRunning) tick();
-                    if(renderRunning) repaint();
-                    try
-                    {
-                        long frameTime = System.currentTimeMillis() - startTime;
-                        long sleepTime = 1000 / updateRate - frameTime;
-                        if(sleepTime > 0)
-                            Thread.sleep(sleepTime);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        System.out.println("You done fucked up");
-                    }
+                    long frameTime = System.currentTimeMillis() - startTime;
+                    long sleepTime = 1000 / updateRate - frameTime;
+                    if(sleepTime > 0)
+                        Thread.sleep(sleepTime);
+                }
+                catch (InterruptedException e)
+                {
+                    System.out.println("You done fucked up");
                 }
             }
         });
@@ -322,12 +316,8 @@ public abstract class GameFrameBolji extends JPanel implements MouseListener,
      * @param keyCode konstanta iz KeyEvent koja odre?uje tipku
      * @return true ako je pritisnuta, false ako nije
      */
-    protected boolean isKeyDown(int keyCode)
-    {
-        if(keyCode >= 0 && keyCode < 1024)
-            return keyboardKeys[keyCode];
-        else
-            return false;
+    protected boolean isKeyDown(int keyCode) {
+        return keyCode >= 0 && keyCode < 1024 && keyboardKeys[keyCode];
     }
 
     /**

@@ -1,4 +1,4 @@
-package neat5000;
+package neat;
 
 public class Synapse implements Cloneable {
     private Neuron sourceNeuron;

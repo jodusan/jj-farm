@@ -1,13 +1,13 @@
-package neat5000;
+package neat;
 
 /**
-    Super TODO: Srediti ceo kod da bude lepo napisano i zakomentarisano :D
-    Neke ideje povadjene odavdije:
-    https://github.com/vivin/DigitRecognizingNeuralNetwork/blob/master/src/main/java/net/vivin/neural/NeuralNetwork.java
-
-    iNodes: oni na ciji output moze da se nadoveze
-    outpuees: oni na ciji ulaz moze da se nadoveze
-    ioNodes: oni koji mogu i jedno i drugo :D
+ * Super TODO: Srediti ceo kod da bude lepo napisano i zakomentarisano :D
+ * Neke ideje povadjene odavdije:
+ * https://github.com/vivin/DigitRecognizingNeuralNetwork/blob/master/src/main/java/net/vivin/neural/NeuralNetwork.java
+ * <p>
+ * iNodes: oni na ciji output moze da se nadoveze
+ * outpuees: oni na ciji ulaz moze da se nadoveze
+ * ioNodes: oni koji mogu i jedno i drugo :D
  **/
 
 
@@ -17,10 +17,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Network {
-    private Random randomGen;
-//    private Neuron sensor1 = new Neuron();
-//    private Neuron sensor2 = new Neuron();
-//    private Neuron sensor3 = new Neuron();
+    private Random randomGen = new Random();
     private ArrayList<Neuron> sensors = new ArrayList<>();
     private ArrayList<Neuron> iNodes = new ArrayList<>();
     private ArrayList<Neuron> oNodes = new ArrayList<>();
@@ -35,7 +32,6 @@ public class Network {
     public void setupNetwork(Genome genome) {
 
     }
-
 
 
     public Network copy() {
@@ -62,7 +58,7 @@ public class Network {
         ArrayList<Neuron> copyoNodes = new ArrayList<>();
         ArrayList<Neuron> copySensors = new ArrayList<>();
 
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             /* Node we are currently processing */
             Neuron originalNode = queue.pop();
 
@@ -72,12 +68,12 @@ public class Network {
             /* Clone of the original node that is being processed */
             Neuron copyNode = map.get(originalNode);
 
-            for(Synapse inputSynapse : inputSynapses) {
+            for (Synapse inputSynapse : inputSynapses) {
                 /* Get the real input node */
                 Neuron inputOriginal = inputSynapse.getSource();
 
                 /* If the copy of the inputOriginal doesn't exist, create it. Otherwise just connect */
-                if(!map.containsKey(inputOriginal)) {
+                if (!map.containsKey(inputOriginal)) {
                     Neuron inputCopy = new Neuron();
                     copyioNodes.add(inputCopy);
                     Synapse synapseCopy = new Synapse(inputCopy, copyNode, inputSynapse.getWeight());
@@ -93,12 +89,12 @@ public class Network {
                     copyNode.addInput(copySynapse);
                 }
             }
-            for(Synapse outputSynapse : outputSynapses) {
+            for (Synapse outputSynapse : outputSynapses) {
                 /* Get the real output node */
                 Neuron outputOriginal = outputSynapse.getDestination();
 
                 /* If the copy of the outputOriginal doesn't exist, create it. Otherwise just connect */
-                if(!map.containsKey(outputOriginal)) {
+                if (!map.containsKey(outputOriginal)) {
                     Neuron outputCopy = new Neuron();
                     copyioNodes.add(outputCopy);
                     Synapse syn = new Synapse(copyNode, outputCopy, outputSynapse.getWeight());
@@ -118,20 +114,20 @@ public class Network {
         }
 
         /* Add copy sensors by taking original clones */
-        for(Neuron sensor : this.sensors)
+        for (Neuron sensor : this.sensors)
             copySensors.add(map.get(sensor));
 
         /* Set newly created sensors */
         copyNetwork.setSensors(copySensors);
 
         /* Within cloned network, remove sensors from ioNodes, add to iNodes*/
-        for(Neuron copySensor : copySensors) {
+        for (Neuron copySensor : copySensors) {
             copyioNodes.remove(copySensor);
             copyiNodes.add(copySensor);
         }
 
         /* Add all nodes (except sensors, and actuator) to iNodes and oNodes */
-        for(Neuron ioNode : copyioNodes) {
+        for (Neuron ioNode : copyioNodes) {
             copyiNodes.add(ioNode);
             copyoNodes.add(ioNode);
         }
@@ -145,22 +141,21 @@ public class Network {
 
         // Crap code ahead ================================ WOO HOO WATCH ME ==========================================
         // TODO: Erase this souts once we create a few working networks
-        System.out.println("Erase this sout: Length of ioNodes " + copyioNodes.size());
-        System.out.println("Erase this sout: Length of iNodes  " + copyioNodes.size() + " it should be ioNodes + 3");
-        System.out.println("Erase this sout: Length of oNodes  " + copyioNodes.size() + " it should be ioNodes + 1");
+        System.out.println("Length of ioNodes " + copyioNodes.size());
+        System.out.println("Length of iNodes  " + copyioNodes.size() + " it should be ioNodes + 3");
+        System.out.println("Length of oNodes  " + copyioNodes.size() + " it should be ioNodes + 1");
         // Crap code finished ============================= WOO HOO WATCH ME ==========================================
 
         return copyNetwork;
     }
 
     public void setInputValues(double[] input) {
-        if(input.length != sensors.size()) {
-            System.out.println("[ERROR] Array size of neural network input values must be the same number of input sensors!");
-            System.exit(0);
+        if (input.length != sensors.size()) {
+            throw new IllegalArgumentException("Array size of neural network input values must be the same number of input sensors!");
         }
 
         int i = 0;
-        for(Neuron sensor : sensors) {
+        for (Neuron sensor : sensors) {
             sensor.setOutput(input[i]);
             i++;
         }
@@ -199,7 +194,7 @@ public class Network {
 
         destination.getInputs().remove(sourceSynapse);
 
-        Synapse tempSynapse = new Synapse(temp,destination,randomGen.nextDouble());
+        Synapse tempSynapse = new Synapse(temp, destination, randomGen.nextDouble());
 
         temp.getOutputs().add(tempSynapse);
         destination.getInputs().add(tempSynapse);
@@ -209,15 +204,26 @@ public class Network {
         ioNodes.add(temp);
     }
 
+    public void mutateAddSynapse() {
+        Neuron source = getRandomNeuron(iNodes);
+        Neuron dest = source;
+        while (dest.equals(source)) {
+            dest = getRandomNeuron(oNodes);
+        }
+
+        Synapse syn = new Synapse(source, dest, Math.random());
+
+        source.addOutput(syn);
+        dest.addInput(syn);
+    }
+
     public void mutateRemoveNeuron() {
-        if(ioNodes.size() != 0) {
+        if (ioNodes.size() != 0) {
             Neuron temp = getRandomNeuron(ioNodes);
-            for(Synapse syn : temp.getInputs())
-            {
+            for (Synapse syn : temp.getInputs()) {
                 syn.getSource().getOutputs().remove(syn);
             }
-            for(Synapse syn : temp.getOutputs())
-            {
+            for (Synapse syn : temp.getOutputs()) {
                 syn.getDestination().getInputs().remove(syn);
             }
 
@@ -231,16 +237,16 @@ public class Network {
     }
 
     public void mutateChangeWeights() {
-        if(ioNodes.size() != 0) {
+        if (ioNodes.size() != 0) {
             Neuron temp = getRandomNeuron(ioNodes);
-            for(Synapse s : temp.getInputs()) {
+            for (Synapse s : temp.getInputs()) {
                 s.setWeight(randomGen.nextDouble());
             }
         }
     }
 
     public void mutate() {
-        if(randomGen.nextDouble() > 0.4) {
+        if (randomGen.nextDouble() > 0.4) {
             int mutationType = randomGen.nextInt(3);
             if (mutationType == 0)
                 mutateAddNeuron();
@@ -274,13 +280,15 @@ public class Network {
     }
 
     public void setSensors(ArrayList<Neuron> sensors) {
-        for(Neuron sensor : sensors) {
+        for (Neuron sensor : sensors) {
+            this.iNodes.add(sensor);
             this.sensors.add(sensor);
         }
     }
 
     public void setActuator(Neuron actuator) {
         this.actuator = actuator;
+        this.oNodes.add(actuator);
     }
 
 }

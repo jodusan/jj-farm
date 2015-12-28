@@ -17,50 +17,52 @@ public class Resources {
     /* Singleton */
     private static Resources instance = null;
 
-    public static BufferedImage    BACKGROUND_IMAGE;
-    public static BufferedImage    GROUND_IMAGE;
-    public static BufferedImage    TUBE_UP_IMAGE;
-    public static BufferedImage    TUBE_DOWN_IMAGE;
-    public static BufferedImage[]  BIRD_IMAGES;
+    public static BufferedImage BACKGROUND_IMAGE;
+    public static BufferedImage GROUND_IMAGE;
+    public static BufferedImage TUBE_UP_IMAGE;
+    public static BufferedImage TUBE_DOWN_IMAGE;
+    public static BufferedImage[] BIRD_IMAGES;
 
-    public static final int WIDTH         = 1280;
-    public static final int HEIGHT        = 720;
-    public static final int BIRD_WIDTH    = 72;
-    public static final int BIRD_HEIGHT   = 52;
-    public static final int FLOOR_WIDTH   = 672;
-    public static final int FLOOR_HEIGHT  = 224;
-    public static final int FLOOR_OFFSET  = 96;
-    public static final int FLOOR_SPEED   = 5;
-    public static final int TUBE_WIDTH    = 104;
-    public static final int TUBE_HEIGHT   = 640;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
+    public static final int BIRD_WIDTH = 72;
+    public static final int BIRD_HEIGHT = 52;
+    public static final int FLOOR_WIDTH = 672;
+    public static final int FLOOR_HEIGHT = 224;
+    public static final int FLOOR_OFFSET = 96;
+    public static final int FLOOR_SPEED = 5;
+    public static final int TUBE_WIDTH = 104;
+    public static final int TUBE_HEIGHT = 640;
     public static final int TUBE_APERTURE = 200;
     public static final int TUBE_GAP_DISTANCE = 160;
     public static final int BIRD_X_POSITION = 100;
+    public static final int NO_OF_BIRDS = 100;
 
     public static boolean IN_TUBE = false;
-    public static Point CURRENT_TUBE=new Point(0,0);
+    public static Point CURRENT_TUBE = new Point(0, 0);
 
     static {
         try {
             BACKGROUND_IMAGE = upscale(ImageIO.read(new File("assets/bg.png")));
             GROUND_IMAGE = upscale(ImageIO.read(new File("assets/ground.png")));
             final BufferedImage birdImage = ImageIO.read(new File("assets/bird.png"));
-            BIRD_IMAGES = new BufferedImage[] {
+            BIRD_IMAGES = new BufferedImage[]{
                     upscale(birdImage.getSubimage(0, 0, 36, 26)),
                     upscale(birdImage.getSubimage(36, 0, 36, 26)),
-                    upscale(birdImage.getSubimage(72, 0, 36, 26)) };
+                    upscale(birdImage.getSubimage(72, 0, 36, 26))};
             TUBE_UP_IMAGE = upscale(ImageIO.read(new File("assets/tube1.png")));
             TUBE_DOWN_IMAGE = upscale(ImageIO.read(new File("assets/tube2.png")));
         } catch (Exception e) {
             System.out.println("[ERROR] Cannot load resources!");
         }
     }
+
     protected Resources() {
 
     }
 
     public static Resources getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new Resources();
         }
         return instance;
