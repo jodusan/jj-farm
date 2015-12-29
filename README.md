@@ -19,7 +19,7 @@ Edit `README.md` with the name of your project, a description, installation inst
 
 ## Support
 
-Please open an issue to receive support for this project.
+none, nada, aucune...
 
 ## Contributing
 
