@@ -45,7 +45,7 @@ public class FlappyBird extends GameFrameBolji {
 
         tubes.render(g);
         ground.render(g);
-        g.drawString(birdsAlive + "", Resources.WIDTH - 100, 100);
+        g.drawString(birdsAlive + "", Resources.nextTube.x,Resources.nextTube.y+Resources.TUBE_HEIGHT);
     }
 
     @Override
@@ -58,6 +58,7 @@ public class FlappyBird extends GameFrameBolji {
         birdsAlive = tempBirdAlive;
         tubes.update();
         ground.update();
+
     }
 
     @Override

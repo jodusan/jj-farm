@@ -1,6 +1,8 @@
 package neat;
 
 
+import game.Resources;
+
 import java.util.ArrayList;
 
 public class Neuron {
@@ -10,20 +12,24 @@ public class Neuron {
     private double output;
 
     public Neuron() {
+        weightedSum=0.43;
         inputs = new ArrayList<>();
     }
 
 
-    public void calculateWeightedSum() {
+    public double activate() {
         weightedSum = 0;
         for (Synapse synapse : inputs) {
-            weightedSum += synapse.getWeight() * synapse.getSource().getOutput();
+            System.out.println("Synapse source"+synapse.getSource());
+            System.out.println("Synapse dest"+synapse.getDestination());
+            if(!Resources.visitedNeurons.containsKey(synapse.getSource()))
+            {
+                Resources.visitedNeurons.put(synapse.getSource(),1.0);
+                weightedSum += synapse.getWeight() * synapse.getSource().activate();
+            }
         }
-    }
-
-    public void activate() {
-        calculateWeightedSum();
-        output = sigmoid(weightedSum);
+        if(inputs.size()==0) return output;
+        return sigmoid(weightedSum);
     }
 
     public static double sigmoid(double weight) {
@@ -32,6 +38,8 @@ public class Neuron {
 
     public void addInput(Synapse input) {
         inputs.add(input);
+        System.out.println("Dodao se input " + input.getSource() + " " + input.getDestination());
+        System.out.println(inputs);
     }
 
     public void addOutput(Synapse output) {

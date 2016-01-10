@@ -9,10 +9,9 @@ public class Tube {
     int pillarNum = 6;
     int xPos[] = new int[pillarNum];
     int yPos[] = new int[pillarNum];
-
+    int closestTube=0;
     int gapDistance = Resources.TUBE_GAP_DISTANCE;
     int offset = 300;
-
     private BufferedImage pillar1 = Resources.TUBE_UP_IMAGE;
     private BufferedImage pillar2 = Resources.TUBE_DOWN_IMAGE;
 
@@ -22,10 +21,12 @@ public class Tube {
     }
 
     public Tube() {
+
         for (int i = 0; i < pillarNum; i++) {
             xPos[i] = 1024 + i * offset;
             yPos[i] = randY();
         }
+
     }
 
     public void render(Graphics2D g) {
@@ -37,8 +38,15 @@ public class Tube {
 
     public void update() {
         boolean InTube = false;
+        Resources.nextTube.x=xPos[closestTube];
+        Resources.nextTube.y=yPos[closestTube];
         for (int i = 0; i < pillarNum; i++) {
             xPos[i] -= 3;
+            if(xPos[closestTube]<Resources.BIRD_X_POSITION)
+            {
+                closestTube=(closestTube+1)%pillarNum;
+                Resources.nextTube=new Point(xPos[closestTube],yPos[closestTube]);
+            }
             int leftBird = Resources.BIRD_X_POSITION;
             int rightBird = Resources.BIRD_X_POSITION + Resources.BIRD_WIDTH;
             int leftTube = xPos[i];

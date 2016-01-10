@@ -11,6 +11,8 @@ package neat;
  **/
 
 
+import game.Resources;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -26,7 +28,18 @@ public class Network {
     private Neuron actuator = new Neuron();
 
     public Network() {
+        setActuator(actuator);
+    }
 
+    public double propagate()
+    {
+        Resources.visitedNeurons.clear();
+        System.out.println(Resources.visitedNeurons);
+        System.out.println(iNodes);
+        System.out.println(oNodes);
+        System.out.println(ioNodes);
+        System.out.println("Inputi aktu" + actuator.getInputs());
+        return actuator.activate();
     }
 
     public void setupNetwork(Genome genome) {
@@ -212,7 +225,6 @@ public class Network {
         }
 
         Synapse syn = new Synapse(source, dest, Math.random());
-
         source.addOutput(syn);
         dest.addInput(syn);
     }

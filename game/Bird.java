@@ -42,6 +42,9 @@ public class Bird {
         output.add(new Neuron());
         birdNetwork.setOutputNodes(output);
         birdNetwork.mutateAddSynapse();
+        birdNetwork.mutateAddSynapse();
+        birdNetwork.mutateAddSynapse();
+        birdNetwork.mutateAddSynapse();
         try {
             birdImage = ImageIO.read(new File("assets/bird.png"));
         } catch (IOException e) {
@@ -90,6 +93,14 @@ public class Bird {
     }
 
     public void update() {
+
+        birdNetwork.setInputValues(new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT, Resources.nextTube.getX() - Resources.BIRD_X_POSITION});
+        double pg = birdNetwork.propagate();
+        System.out.println(pg);
+        if (pg > 0.5) {
+            readyFlap();
+            flap();
+        }
         if (dead) return;
         if (velocity >= -15)
             velocity -= 0.5;

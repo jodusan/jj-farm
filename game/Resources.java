@@ -7,10 +7,15 @@
 package game;
 
 
+import neat.Neuron;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Resources {
 
@@ -36,10 +41,13 @@ public class Resources {
     public static final int TUBE_APERTURE = 200;
     public static final int TUBE_GAP_DISTANCE = 160;
     public static final int BIRD_X_POSITION = 100;
-    public static final int NO_OF_BIRDS = 100;
+    public static final int NO_OF_BIRDS = 1;
 
     public static boolean IN_TUBE = false;
     public static Point CURRENT_TUBE = new Point(0, 0);
+
+    public static HashMap<Neuron,Double> visitedNeurons=new HashMap<>();
+    public static Point nextTube=new Point(0,0);
 
     static {
         try {
