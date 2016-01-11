@@ -42,6 +42,7 @@ public class Network {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public Network copy() {
 
         /* Needed for breadth first graph traversal */
@@ -61,10 +62,19 @@ public class Network {
         queue.add(originalActuator);
         map.put(originalActuator, copyActuator);
 
+
         ArrayList<Neuron> copyioNodes = new ArrayList<>();
         ArrayList<Neuron> copyiNodes = new ArrayList<>();
         ArrayList<Neuron> copyoNodes = new ArrayList<>();
         ArrayList<Neuron> copySensors = new ArrayList<>();
+
+        for( Neuron s : sensors ) {
+            Neuron temp = new Neuron();
+            map.put(s, temp);
+            queue.add(s);
+            copySensors.add(temp);
+            copyiNodes.add(temp);
+        }
 
         while (!queue.isEmpty()) {
             /* Node we are currently processing */
@@ -85,6 +95,7 @@ public class Network {
                     Neuron inputCopy = new Neuron();
                     copyioNodes.add(inputCopy);
                     Synapse synapseCopy = new Synapse(inputCopy, copyNode, inputSynapse.getWeight());
+                    inputCopy.addOutput(synapseCopy);
                     copyNode.addInput(synapseCopy);
                     map.put(inputOriginal, inputCopy);
                     queue.add(inputOriginal);
@@ -92,9 +103,19 @@ public class Network {
                     /* Get the copy of the real node since it exists */
                     Neuron inputCopy = map.get(inputOriginal);
 
-                    /* Create input synapse between cloned nodes */
-                    Synapse copySynapse = new Synapse(inputCopy, copyNode, inputSynapse.getWeight());
-                    copyNode.addInput(copySynapse);
+                    boolean alreadyExists = false;
+                    for(Synapse n : inputCopy.getOutputs()) {
+                        if( n.getSource().equals(inputCopy) && n.getDestination().equals(copyNode)) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+                    if(!alreadyExists) {
+                         /* Create input synapse between cloned nodes */
+                        Synapse copySynapse = new Synapse(inputCopy, copyNode, inputSynapse.getWeight());
+                        copyNode.addInput(copySynapse);
+                        inputCopy.addOutput(copySynapse);
+                    }
                 }
             }
             for (Synapse outputSynapse : outputSynapses) {
@@ -107,36 +128,39 @@ public class Network {
                     copyioNodes.add(outputCopy);
                     Synapse syn = new Synapse(copyNode, outputCopy, outputSynapse.getWeight());
                     copyNode.addOutput(syn);
+                    outputCopy.addInput(syn);
                     map.put(outputOriginal, outputCopy);
                     queue.add(outputOriginal);
                 } else {
                     /* Get the copy of the real node since it exists */
                     Neuron outputCopy = map.get(outputOriginal);
 
-                    /* Create output synapse between cloned nodes */
-                    Synapse copySynapse = new Synapse(copyNode, outputCopy, outputSynapse.getWeight());
-                    copyNode.addOutput(copySynapse);
+                    boolean alreadyExists = false;
+                    for(Synapse n : outputCopy.getInputs()) {
+                        if(n.getSource().equals(copyNode) && n.getDestination().equals(outputCopy)) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+                    if(!alreadyExists) {
+                        /* Create output synapse between cloned nodes */
+                        Synapse copySynapse = new Synapse(copyNode, outputCopy, outputSynapse.getWeight());
+                        copyNode.addOutput(copySynapse);
+                        outputCopy.addInput(copySynapse);
+                    }
                 }
 
             }
-        }
-
-        /* Add copy sensors by taking original clones */
-        for (Neuron sensor : this.sensors)
-        {
-
-            copySensors.add(map.get(sensor));
-            System.out.println("Senzor postoji "+map.get(sensor).weightedSum);
         }
 
         /* Set newly created sensors */
         copyNetwork.setSensors(copySensors);
 
         /* Within cloned network, remove sensors from ioNodes, add to iNodes*/
-        for (Neuron copySensor : copySensors) {
-            copyioNodes.remove(copySensor);
-            copyiNodes.add(copySensor);
-        }
+        //for (Neuron copySensor : copySensors) {
+         //   copyioNodes.remove(copySensor);
+         //   copyiNodes.add(copySensor);
+       // }
 
         /* Add all nodes (except sensors, and actuator) to iNodes and oNodes */
         for (Neuron ioNode : copyioNodes) {
