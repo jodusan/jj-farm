@@ -41,13 +41,16 @@ public class Resources {
     public static final int TUBE_APERTURE = 200;
     public static final int TUBE_GAP_DISTANCE = 160;
     public static final int BIRD_X_POSITION = 100;
-    public static final int NO_OF_BIRDS = 1;
+    public static final int BIRD_Y_POSITION = 100;
+    public static final int NO_OF_BIRDS = 100;
 
     public static boolean IN_TUBE = false;
     public static Point CURRENT_TUBE = new Point(0, 0);
 
     public static HashMap<Neuron,Double> visitedNeurons=new HashMap<>();
     public static Point nextTube=new Point(0,0);
+
+    public static int fitnessPillars =0;
 
     static {
         try {
@@ -76,9 +79,14 @@ public class Resources {
         return instance;
     }
 
+    public static void reset()
+    {
+        instance = new Resources();
+    }
+
     /*---------------------------------------------------------
-         * Explanation needed
-         *---------------------------------------------------------*/
+     * Explanation needed
+     *---------------------------------------------------------*/
     private static BufferedImage toBufferedImage(final Image image) {
         final BufferedImage buffered = new BufferedImage(image.getWidth(null),
                 image.getHeight(null), BufferedImage.TYPE_INT_ARGB);

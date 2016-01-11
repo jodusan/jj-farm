@@ -28,17 +28,12 @@ public class Network {
     private Neuron actuator = new Neuron();
 
     public Network() {
-        setActuator(actuator);
+        oNodes.add(actuator);
     }
 
     public double propagate()
     {
         Resources.visitedNeurons.clear();
-        System.out.println(Resources.visitedNeurons);
-        System.out.println(iNodes);
-        System.out.println(oNodes);
-        System.out.println(ioNodes);
-        System.out.println("Inputi aktu" + actuator.getInputs());
         return actuator.activate();
     }
 
@@ -128,7 +123,11 @@ public class Network {
 
         /* Add copy sensors by taking original clones */
         for (Neuron sensor : this.sensors)
+        {
+
             copySensors.add(map.get(sensor));
+            System.out.println("Senzor postoji "+map.get(sensor).weightedSum);
+        }
 
         /* Set newly created sensors */
         copyNetwork.setSensors(copySensors);
@@ -155,8 +154,17 @@ public class Network {
         // Crap code ahead ================================ WOO HOO WATCH ME ==========================================
         // TODO: Erase this souts once we create a few working networks
         System.out.println("Length of ioNodes " + copyioNodes.size());
-        System.out.println("Length of iNodes  " + copyioNodes.size() + " it should be ioNodes + 3");
-        System.out.println("Length of oNodes  " + copyioNodes.size() + " it should be ioNodes + 1");
+        System.out.println("Length of iNodes  " + copyiNodes.size() + " it should be ioNodes + 3");
+        System.out.println("Length of oNodes  " + copyoNodes.size() + " it should be ioNodes + 1");
+        System.out.println(copyNetwork.actuator);
+        System.out.println(copyActuator);
+        System.out.println(copyActuator.weightedSum);
+        for (Neuron n : copyNetwork.iNodes)
+        {
+            System.out.println(n.weightedSum);
+            System.out.println(n.getOutputs());
+            System.out.println(n.getInputs());
+        }
         // Crap code finished ============================= WOO HOO WATCH ME ==========================================
 
         return copyNetwork;
@@ -218,6 +226,7 @@ public class Network {
     }
 
     public void mutateAddSynapse() {
+
         Neuron source = getRandomNeuron(iNodes);
         Neuron dest = source;
         while (dest.equals(source)) {
@@ -259,13 +268,15 @@ public class Network {
 
     public void mutate() {
         if (randomGen.nextDouble() > 0.4) {
-            int mutationType = randomGen.nextInt(3);
+            int mutationType = randomGen.nextInt(4);
             if (mutationType == 0)
                 mutateAddNeuron();
             else if (mutationType == 1)
                 mutateRemoveNeuron();
             else if (mutationType == 2)
                 mutateChangeWeights();
+            else if (mutationType == 3)
+                mutateAddSynapse();
         }
     }
 

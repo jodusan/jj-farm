@@ -5,11 +5,14 @@ import engine.GameFrameBolji;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class FlappyBird extends GameFrameBolji {
 
     int birdsAlive = Resources.NO_OF_BIRDS;
-    Bird testPtica[] = new Bird[Resources.NO_OF_BIRDS];
+    ArrayList<Bird> testPtica = new ArrayList<>();
     Tube tubes = new Tube();
     Ground ground = new Ground();
 
@@ -17,12 +20,27 @@ public class FlappyBird extends GameFrameBolji {
         super("JJFarms finest chicken", 1280, 720);
 
         for (int i = 0; i < Resources.NO_OF_BIRDS; i++) {
-            testPtica[i] = new Bird();
+            testPtica.add(new Bird());
         }
 
         Resources.getInstance();
 
         startThread();
+    }
+
+    public void resetLevel()
+    {
+        tubes = new Tube();
+        ground = new Ground();
+        Resources.reset();
+        testPtica.sort((b1,b2) -> ((Integer)b1.fitness).compareTo((Integer)b2.fitness));
+        for(int i = 0;i<Resources.NO_OF_BIRDS/2;i++)
+        {
+            testPtica.get(i).reset();
+            testPtica.get(i+Resources.NO_OF_BIRDS/2).reset();
+            testPtica.get(i+Resources.NO_OF_BIRDS/2).setBirdNetwork(testPtica.get(i).getBirdNetwork().copy());
+        }
+        birdsAlive = Resources.NO_OF_BIRDS;
     }
 
     @Override
@@ -45,7 +63,7 @@ public class FlappyBird extends GameFrameBolji {
 
         tubes.render(g);
         ground.render(g);
-        g.drawString(birdsAlive + "", Resources.nextTube.x,Resources.nextTube.y+Resources.TUBE_HEIGHT);
+        g.drawString("Birds alive: " +birdsAlive+" Columns passed: "+Resources.fitnessPillars, 50,50);
     }
 
     @Override
@@ -56,6 +74,7 @@ public class FlappyBird extends GameFrameBolji {
             b.update();
         }
         birdsAlive = tempBirdAlive;
+        if(birdsAlive==0) resetLevel();
         tubes.update();
         ground.update();
 

@@ -16,7 +16,7 @@ public class Bird {
 
     Network birdNetwork;
     int xPos = Resources.BIRD_X_POSITION;
-    int yPos = 100;
+    int yPos = Resources.BIRD_Y_POSITION;
     int currImg = 0;
     int delay = 0;
     int jumpDuration = 3;
@@ -26,25 +26,16 @@ public class Bird {
     double jumpVelocity = 3;
     double velocity = -2.5;
     double angle;
+    int fitness =0;
+
     BufferedImage birdImage = null;
     BufferedImage birdImages[] = null;
 
     Bird() {
+
         birdNetwork = new Network();
-        ArrayList<Neuron> inputs = new ArrayList<>();
-        inputs.add(new Neuron());
-        inputs.add(new Neuron());
-        inputs.add(new Neuron());
-        birdNetwork.setSensors(inputs);
-        double inputValues[] = new double[]{0.5, 0.5, 0.5};
-        birdNetwork.setInputValues(inputValues);
-        ArrayList<Neuron> output = new ArrayList<>();
-        output.add(new Neuron());
-        birdNetwork.setOutputNodes(output);
-        birdNetwork.mutateAddSynapse();
-        birdNetwork.mutateAddSynapse();
-        birdNetwork.mutateAddSynapse();
-        birdNetwork.mutateAddSynapse();
+        setupNetwork();
+
         try {
             birdImage = ImageIO.read(new File("assets/bird.png"));
         } catch (IOException e) {
@@ -72,8 +63,33 @@ public class Bird {
         return a + f * (b - a);
     }
 
+    public void reset()
+    {
+        yPos=Resources.BIRD_Y_POSITION;
+        dead=false;
+        velocity=0;
+    }
+
+    public void rewireNetwork()
+    {
+        birdNetwork.mutate();
+        birdNetwork.mutate();
+        birdNetwork.mutate();
+    }
+
+    public void setupNetwork()
+    {
+        ArrayList<Neuron> inputs = new ArrayList<>();
+        inputs.add(new Neuron());
+        inputs.add(new Neuron());
+        inputs.add(new Neuron());
+        birdNetwork.setSensors(inputs);
+        double inputValues[] = new double[]{0.5, 0.5, 0.5};
+        birdNetwork.setInputValues(inputValues);
+    }
+
     public void render(Graphics2D g) {
-        if (dead) return;
+        //if (dead) return;
         AffineTransform at = new AffineTransform();
         at.translate(xPos, yPos);
         at.rotate(lerp(Math.PI / 2 - 0.3, -Math.PI / 2, ((velocity) + 15) / 21));
@@ -94,14 +110,22 @@ public class Bird {
 
     public void update() {
 
-        birdNetwork.setInputValues(new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT, Resources.nextTube.getX() - Resources.BIRD_X_POSITION});
+        //if (dead) return;
+
+        double inputs[] = new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT, Resources.nextTube.getX() - Resources.BIRD_X_POSITION};
+        inputs[0]=(double)yPos/Resources.HEIGHT;
+        inputs[1]=(inputs[1]-560+Resources.TUBE_HEIGHT)/(-260+560); // 80-380
+        inputs[2]=(inputs[2])/(Resources.WIDTH-Resources.BIRD_X_POSITION);
+        //System.out.println(inputs[0]+ " " + inputs[1]+ " "+inputs[2]);
+        birdNetwork.setInputValues(inputs);
         double pg = birdNetwork.propagate();
-        System.out.println(pg);
+        //System.out.println(pg);
         if (pg > 0.5) {
             readyFlap();
             flap();
         }
-        if (dead) return;
+        //System.out.println("");
+
         if (velocity >= -15)
             velocity -= 0.5;
         if (velocity > 0) {
@@ -112,6 +136,7 @@ public class Bird {
             yPos -= velocity;
             if (yPos > Resources.HEIGHT - 50) {
                 dead = true;
+                fitness=Resources.fitnessPillars;
             }
         }
         if (Resources.IN_TUBE) {
@@ -127,6 +152,7 @@ public class Bird {
                 // (yPos > Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT && yPos < Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE)
                 if (!(topTube < topBird) || !(bottomBird < bottomTube)) {
                     dead = true;
+                    fitness=Resources.fitnessPillars;
                 }
             } else {
                 Resources.IN_TUBE = false;
@@ -157,4 +183,12 @@ public class Bird {
         return buffered;
     }
 
+    public Network getBirdNetwork() {
+        return birdNetwork;
+    }
+
+    public void setBirdNetwork(Network birdNetwork) {
+        this.birdNetwork = birdNetwork;
+        this.rewireNetwork();
+    }
 }
