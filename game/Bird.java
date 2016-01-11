@@ -89,7 +89,7 @@ public class Bird {
     }
 
     public void render(Graphics2D g) {
-        //if (dead) return;
+        if (dead) return;
         AffineTransform at = new AffineTransform();
         at.translate(xPos, yPos);
         at.rotate(lerp(Math.PI / 2 - 0.3, -Math.PI / 2, ((velocity) + 15) / 21));
@@ -110,7 +110,7 @@ public class Bird {
 
     public void update() {
 
-        //if (dead) return;
+        if (dead) return;
 
         double inputs[] = new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT, Resources.nextTube.getX() - Resources.BIRD_X_POSITION};
         inputs[0]=(double)yPos/Resources.HEIGHT;
@@ -120,7 +120,7 @@ public class Bird {
         birdNetwork.setInputValues(inputs);
         double pg = birdNetwork.propagate();
         //System.out.println(pg);
-        if (pg > 0.5) {
+        if (pg > 0.7) {
             readyFlap();
             flap();
         }

@@ -33,13 +33,23 @@ public class FlappyBird extends GameFrameBolji {
         tubes = new Tube();
         ground = new Ground();
         Resources.reset();
-        testPtica.sort((b1,b2) -> ((Integer)b1.fitness).compareTo((Integer)b2.fitness));
+
+        testPtica.sort((b1,b2) -> ((Integer)b2.fitness).compareTo((Integer)b1.fitness));
+
+        for (int i =0 ;i<Resources.NO_OF_BIRDS;i++)
+        {
+            System.out.println(testPtica.get(i).fitness);
+        }
+
         for(int i = 0;i<Resources.NO_OF_BIRDS/2;i++)
         {
+            System.out.println(testPtica.get(i).fitness);
+
             testPtica.get(i).reset();
             testPtica.get(i+Resources.NO_OF_BIRDS/2).reset();
             testPtica.get(i+Resources.NO_OF_BIRDS/2).setBirdNetwork(testPtica.get(i).getBirdNetwork().copy());
         }
+        System.out.println(" ");
         birdsAlive = Resources.NO_OF_BIRDS;
     }
 

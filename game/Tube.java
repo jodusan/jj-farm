@@ -38,6 +38,7 @@ public class Tube {
 
     public void update() {
         boolean InTube = false;
+        Resources.fitnessPillars++;
         Resources.nextTube.x=xPos[closestTube];
         Resources.nextTube.y=yPos[closestTube];
         for (int i = 0; i < pillarNum; i++) {
@@ -46,7 +47,6 @@ public class Tube {
             {
                 closestTube=(closestTube+1)%pillarNum;
                 Resources.nextTube=new Point(xPos[closestTube],yPos[closestTube]);
-                Resources.fitnessPillars++;
             }
             int leftBird = Resources.BIRD_X_POSITION;
             int rightBird = Resources.BIRD_X_POSITION + Resources.BIRD_WIDTH;

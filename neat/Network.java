@@ -177,18 +177,18 @@ public class Network {
 
         // Crap code ahead ================================ WOO HOO WATCH ME ==========================================
         // TODO: Erase this souts once we create a few working networks
-        System.out.println("Length of ioNodes " + copyioNodes.size());
-        System.out.println("Length of iNodes  " + copyiNodes.size() + " it should be ioNodes + 3");
-        System.out.println("Length of oNodes  " + copyoNodes.size() + " it should be ioNodes + 1");
-        System.out.println(copyNetwork.actuator);
-        System.out.println(copyActuator);
-        System.out.println(copyActuator.weightedSum);
-        for (Neuron n : copyNetwork.iNodes)
-        {
-            System.out.println(n.weightedSum);
-            System.out.println(n.getOutputs());
-            System.out.println(n.getInputs());
-        }
+//        System.out.println("Length of ioNodes " + copyioNodes.size());
+//        System.out.println("Length of iNodes  " + copyiNodes.size() + " it should be ioNodes + 3");
+//        System.out.println("Length of oNodes  " + copyoNodes.size() + " it should be ioNodes + 1");
+//        System.out.println(copyNetwork.actuator);
+//        System.out.println(copyActuator);
+//        System.out.println(copyActuator.weightedSum);
+//        for (Neuron n : copyNetwork.iNodes)
+//        {
+//            System.out.println(n.weightedSum);
+//            System.out.println(n.getOutputs());
+//            System.out.println(n.getInputs());
+//        }
         // Crap code finished ============================= WOO HOO WATCH ME ==========================================
 
         return copyNetwork;
@@ -302,6 +302,7 @@ public class Network {
             else if (mutationType == 3)
                 mutateAddSynapse();
         }
+        mutateChangeWeights();
     }
 
     public Neuron getRandomNeuron(ArrayList<Neuron> neuronList) {

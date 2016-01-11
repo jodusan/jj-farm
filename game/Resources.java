@@ -81,7 +81,11 @@ public class Resources {
 
     public static void reset()
     {
-        instance = new Resources();
+        fitnessPillars=0;
+        nextTube=new Point(0,0);
+        visitedNeurons=new HashMap<>();
+        CURRENT_TUBE = new Point(0, 0);
+        IN_TUBE = false;
     }
 
     /*---------------------------------------------------------
