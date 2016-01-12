@@ -43,7 +43,7 @@ public class Tube {
         Resources.nextTube.y=yPos[closestTube];
         for (int i = 0; i < pillarNum; i++) {
             xPos[i] -= 3;
-            if(xPos[closestTube]<Resources.BIRD_X_POSITION)
+            if(xPos[closestTube]<Resources.BIRD_X_POSITION-150)
             {
                 closestTube=(closestTube+1)%pillarNum;
                 Resources.nextTube=new Point(xPos[closestTube],yPos[closestTube]);
