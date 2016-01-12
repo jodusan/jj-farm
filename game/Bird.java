@@ -84,7 +84,7 @@ public class Bird {
         inputs.add(new Neuron());
         inputs.add(new Neuron());
         birdNetwork.setSensors(inputs);
-        double inputValues[] = new double[]{0.5, 0.5, 0.5};
+        double inputValues[] = new double[]{0.65, 0.34, 0.45};
         birdNetwork.setInputValues(inputValues);
     }
 
@@ -112,15 +112,24 @@ public class Bird {
 
         if (dead) return;
 
-        double inputs[] = new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT, Resources.nextTube.getX() - Resources.BIRD_X_POSITION};
-        inputs[0]=(double)yPos/Resources.HEIGHT;
-        inputs[1]=(inputs[1]-560+Resources.TUBE_HEIGHT)/(-260+560); // 80-380
-        inputs[2]=(inputs[2])/(Resources.WIDTH-Resources.BIRD_X_POSITION);
+        double inputs[] = new double[]{Math.abs((Resources.nextTube.getY() + Resources.TUBE_HEIGHT)-yPos), Math.abs((Resources.nextTube.getY() + Resources.TUBE_HEIGHT)-yPos), Resources.nextTube.getX() - Resources.BIRD_X_POSITION};
+        inputs[0]=(double)yPos/560;
+        inputs[1]=1-(inputs[1]/560);
+        if(yPos < (Resources.nextTube.getY() + Resources.TUBE_HEIGHT) - 80) {
+            inputs[0] += 0.2;
+            inputs[1] += 0.1;
+        } else {
+            inputs[0] -=1;
+            inputs[1] -=1;
+        }
+
+        System.out.println(inputs[2] % 200);
+        inputs[2]=1-((inputs[2])/(Resources.WIDTH-Resources.BIRD_X_POSITION));
         //System.out.println(inputs[0]+ " " + inputs[1]+ " "+inputs[2]);
         birdNetwork.setInputValues(inputs);
         double pg = birdNetwork.propagate();
         //System.out.println(pg);
-        if (pg > 0.7) {
+        if (pg > 0.65) {
             readyFlap();
             flap();
         }
@@ -139,6 +148,12 @@ public class Bird {
                 fitness=Resources.fitnessPillars;
             }
         }
+        int topBird = yPos - Resources.BIRD_HEIGHT / 2;
+        int bottomBird = topBird + Resources.BIRD_HEIGHT;
+        if( topBird <= 10 || bottomBird >= 560 ) {
+            dead = true;
+            fitness=Resources.fitnessPillars;
+        }
         if (Resources.IN_TUBE) {
             int leftBird = Resources.BIRD_X_POSITION;
             int rightBird = Resources.BIRD_X_POSITION + Resources.BIRD_WIDTH;
@@ -147,8 +162,7 @@ public class Bird {
             if ((leftBird <= rightTube && leftBird >= leftTube) || (rightBird <= rightTube && rightBird >= leftTube)) {
                 int topTube = (int) Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT;
                 int bottomTube = topTube + Resources.TUBE_GAP_DISTANCE;
-                int topBird = yPos - Resources.BIRD_HEIGHT / 2;
-                int bottomBird = topBird + Resources.BIRD_HEIGHT;
+
                 // (yPos > Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT && yPos < Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE)
                 if (!(topTube < topBird) || !(bottomBird < bottomTube)) {
                     dead = true;

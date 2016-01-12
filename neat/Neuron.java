@@ -12,7 +12,7 @@ public class Neuron {
     private double output;
 
     public Neuron() {
-        weightedSum=0.43;
+        weightedSum=0.65;
         inputs = new ArrayList<>();
     }
 

@@ -6,8 +6,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class FlappyBird extends GameFrameBolji {
 
@@ -36,16 +34,13 @@ public class FlappyBird extends GameFrameBolji {
 
         testPtica.sort((b1,b2) -> ((Integer)b2.fitness).compareTo((Integer)b1.fitness));
 
-        for (int i =0 ;i<Resources.NO_OF_BIRDS;i++)
-        {
-            System.out.println(testPtica.get(i).fitness);
-        }
-
         for(int i = 0;i<Resources.NO_OF_BIRDS/2;i++)
         {
-            System.out.println(testPtica.get(i).fitness);
+            //System.out.println(testPtica.get(i).fitness);
 
             testPtica.get(i).reset();
+            testPtica.get(i).birdNetwork.mutateChangeWeights();
+            testPtica.get(i).birdNetwork.mutate();
             testPtica.get(i+Resources.NO_OF_BIRDS/2).reset();
             testPtica.get(i+Resources.NO_OF_BIRDS/2).setBirdNetwork(testPtica.get(i).getBirdNetwork().copy());
         }

@@ -13,9 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Resources {
 
@@ -42,7 +40,7 @@ public class Resources {
     public static final int TUBE_GAP_DISTANCE = 160;
     public static final int BIRD_X_POSITION = 100;
     public static final int BIRD_Y_POSITION = 100;
-    public static final int NO_OF_BIRDS = 100;
+    public static final int NO_OF_BIRDS = 1000;
 
     public static boolean IN_TUBE = false;
     public static Point CURRENT_TUBE = new Point(0, 0);
