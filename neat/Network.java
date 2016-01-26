@@ -201,10 +201,6 @@ public class Network {
         }
     }
 
-    public double getOutput() {
-        return actuator.getOutput();
-    }
-
     public void mutateAddNeuron() {
         Neuron temp = new Neuron();
 

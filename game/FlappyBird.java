@@ -2,7 +2,6 @@ package game;
 
 import engine.GameFrame;
 
-import javax.print.DocFlavor;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,7 +12,6 @@ public class FlappyBird extends GameFrame {
     Ground ground = new Ground();
 
     public FlappyBird() {
-        super("JJFarms finest chicken", 1280, 720);
 
         for (int i = 0; i < Resources.NO_OF_BIRDS; i++) {
             birdsList.add(new Bird());
@@ -43,7 +41,7 @@ public class FlappyBird extends GameFrame {
     }
 
     @Override
-    public void render(Graphics2D g, int screenWidth, int screenHeigth) {
+    public void render(Graphics2D g) {
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 

@@ -12,8 +12,8 @@ import java.awt.*;
 
 public abstract class GameFrame extends JPanel {
 
-    private int screenX = 640;
-    private int screenY = 480;
+    private int screenX = 1280;
+    private int screenY = 720;
 
     private static JFrame myFrame = null;
     private String title = "";
@@ -27,17 +27,12 @@ public abstract class GameFrame extends JPanel {
 
     private Thread runnerThread = null;
 
-    public GameFrame(String title, int sizeX, int sizeY) {
+    public GameFrame() {
         super(true);
-
-        screenX = sizeX;
-        screenY = sizeY;
 
         setSize(screenX, screenY);
 
-        if (title != null) this.title = title;
-
-        this.title = title;
+        this.title = "JJFarms finest chicken";
 
         runnerThread = new Thread(() -> {
             while (true) {
@@ -118,23 +113,7 @@ public abstract class GameFrame extends JPanel {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        render((Graphics2D) g, getWidth(), getHeight());
-    }
-
-    protected JFrame getWindow() {
-        return myFrame;
-    }
-
-    protected void setBackgroundClear(boolean clr) {
-        clearBackBuffer = clr;
-    }
-
-
-    /*---------------------------------------------------------
-     *  Sets background color
-     *---------------------------------------------------------*/
-    protected void setBackgroundClearColor(Color c) {
-        backColor = c;
+        render((Graphics2D) g);
     }
 
 
@@ -149,7 +128,7 @@ public abstract class GameFrame extends JPanel {
     /*---------------------------------------------------------
      *  Draws objects on the window. No updates!
      *---------------------------------------------------------*/
-    public abstract void render(Graphics2D g, int sw, int sh);
+    public abstract void render(Graphics2D g);
 
 
     /*---------------------------------------------------------
