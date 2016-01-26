@@ -85,9 +85,7 @@ public class Bird {
         at.rotate(lerp(Math.PI / 2 - 0.3, -Math.PI / 2, ((velocity) + 15) / 21));
         at.translate(-birdImages[0].getWidth() / 2, -birdImages[0].getHeight() / 2);
 
-        /*---------------------------------------------------------
-         * Bird animation when flapping
-         *---------------------------------------------------------*/
+        /* Bird animation when flapping */
         if (velocity > 0) {
             g.drawImage(birdImages[currImg], at, null);
             if (delay > 2) {

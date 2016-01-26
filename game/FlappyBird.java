@@ -29,10 +29,7 @@ public class FlappyBird extends GameFrame {
         ground = new Ground();
         Resources.reset();
 
-        /*---------------------------------------------------------
-         * Sets up an anonimous sort function and sorts the array of
-         * birds accourding to fitness.
-         *---------------------------------------------------------*/
+        /* Sets up an anonimous sort function and sorts the array of birds accourding to fitness */
         birdsList.sort((bird1, bird2) -> ((Integer) bird2.fitness).compareTo((Integer) bird1.fitness));
 
         for (int i = 0; i < Resources.NO_OF_BIRDS / 2; i++) {

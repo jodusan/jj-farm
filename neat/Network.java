@@ -37,11 +37,6 @@ public class Network {
         return actuator.activate();
     }
 
-    public void setupNetwork(Genome genome) {
-
-    }
-
-
     @SuppressWarnings("Duplicates")
     public Network copy() {
 
