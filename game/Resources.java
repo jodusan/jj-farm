@@ -49,6 +49,7 @@ public class Resources {
     public static Point nextTube=new Point(0,0);
 
     public static int fitnessPillars =0;
+    public static int NO_OF_BIRDS_ALIVE = 200;
 
     static {
         try {

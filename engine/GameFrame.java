@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class GameFrame extends JPanel {
-    private static final long serialVersionUID = 6058915663486070170L;
 
     private int screenX = 640;
     private int screenY = 480;
@@ -101,11 +100,9 @@ public abstract class GameFrame extends JPanel {
 
         myFrame.setIgnoreRepaint(true);
 
-        handleWindowInit();
 
         myFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                handleWindowDestroy();
                 System.exit(0);
             }
         });
@@ -147,34 +144,6 @@ public abstract class GameFrame extends JPanel {
     protected void setIcon(Image icon) {
         myFrame.setIconImage(icon);
     }
-
-
-    /*---------------------------------------------------------
-     *  Sets refresh rate ( Hz/fps )
-     *  Timing is made with simple sleep methods which can
-     *  cause judder. No dynamic update or frame skipping.
-     *---------------------------------------------------------*/
-    protected void setUpdateRate(int fps) {
-        if (fps >= 1 && fps < 120) {
-            updateRate = fps;
-        } else {
-            System.out.println("Valid range for setUpdateRate is 1 - 120");
-        }
-    }
-
-
-    /*---------------------------------------------------------
-     *  Fires within initGameWindow() call after
-     *  the window is constructed.
-     *---------------------------------------------------------*/
-    public abstract void handleWindowInit();
-
-
-    /*---------------------------------------------------------
-     *  Fires when user quits the application.
-     *  (Presses the X on the window)
-     *---------------------------------------------------------*/
-    public abstract void handleWindowDestroy();
 
 
     /*---------------------------------------------------------

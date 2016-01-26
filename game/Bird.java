@@ -19,13 +19,10 @@ public class Bird {
     int yPos = Resources.BIRD_Y_POSITION;
     int currImg = 0;
     int delay = 0;
-    int jumpDuration = 3;
     double imgScale = 1.5;
     boolean dead;
-    boolean flapReady = false;
     double jumpVelocity = 3;
     double velocity = -2.5;
-    double angle;
     int fitness =0;
 
     BufferedImage birdImage = null;
@@ -70,11 +67,6 @@ public class Bird {
         velocity=0;
     }
 
-    public void rewireNetwork()
-    {
-        birdNetwork.mutate();
-    }
-
     public void setupNetwork()
     {
         ArrayList<Neuron> inputs = new ArrayList<>();
@@ -93,6 +85,9 @@ public class Bird {
         at.rotate(lerp(Math.PI / 2 - 0.3, -Math.PI / 2, ((velocity) + 15) / 21));
         at.translate(-birdImages[0].getWidth() / 2, -birdImages[0].getHeight() / 2);
 
+        /*---------------------------------------------------------
+         * Bird animation when flapping
+         *---------------------------------------------------------*/
         if (velocity > 0) {
             g.drawImage(birdImages[currImg], at, null);
             if (delay > 2) {
@@ -101,42 +96,31 @@ public class Bird {
             }
             delay++;
         } else g.drawImage(birdImages[1], at, null);
-
-        g.setColor(Color.RED);
-        g.drawRect(xPos, yPos, 2, 2);
     }
 
     public void update() {
 
         if (dead) return;
 
-        double inputs[] = new double[]{yPos, Resources.nextTube.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE/2, (Resources.nextTube.getX() - Resources.BIRD_X_POSITION)%300};
-        inputs[0]=(double)yPos/Resources.HEIGHT;
-        inputs[1]=(inputs[1]-560+Resources.TUBE_HEIGHT)/(-260+560); // 80-380
-        inputs[2]=(inputs[2])/300;
-        inputs[0] = inputs[0]-inputs[1];
-        inputs[1] = inputs[1]-inputs[0];
-        //inputs[2] = 1;
-        //System.out.println(inputs[0]+ " " + inputs[1]+ " "+inputs[2]);
+        double birdYPossition = (double)yPos/Resources.HEIGHT;
+        double nextTubeHeigth = ((Resources.nextTube.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE/2)-560+Resources.TUBE_HEIGHT)/(-260+560); // 80-380
+        double distanceFromNextTube = ((Resources.nextTube.getX() - Resources.BIRD_X_POSITION)%300)/300;
+        double inputs[] = new double[]{birdYPossition-nextTubeHeigth,nextTubeHeigth-birdYPossition,distanceFromNextTube};
         birdNetwork.setInputValues(inputs);
-        double pg = birdNetwork.propagate();
-        //System.out.println(pg);
-        if (pg > 0.6) {
+
+        if (birdNetwork.propagate() > 0.6) {
             velocity = 3;
         }
-        //System.out.println("");
 
-        if (velocity >= -15)
-            velocity -= 0.5;
-        if (velocity > 0) {
-            yPos -= jumpVelocity * velocity;
-
-        } else {
-            //velocity=-10;
+        if (velocity >= -15) velocity -= 0.5;
+        if (velocity > 0) { yPos -= jumpVelocity * velocity; }
+        else {
             yPos -= velocity;
         }
-        if (yPos > Resources.HEIGHT - 50 || yPos<0) {
+
+        if (yPos > Resources.HEIGHT - 100 || yPos<0) {
             dead = true;
+            Resources.NO_OF_BIRDS_ALIVE--;
             fitness=Resources.fitnessPillars;
         }
         if (Resources.IN_TUBE) {
@@ -149,26 +133,15 @@ public class Bird {
                 int bottomTube = topTube + Resources.TUBE_GAP_DISTANCE;
                 int topBird = yPos - Resources.BIRD_HEIGHT / 2;
                 int bottomBird = topBird + Resources.BIRD_HEIGHT;
-                // (yPos > Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT && yPos < Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE)
                 if (!(topTube < topBird) || !(bottomBird < bottomTube)) {
                     dead = true;
+                    Resources.NO_OF_BIRDS_ALIVE--;
                     fitness=Resources.fitnessPillars;
                 }
             } else {
                 Resources.IN_TUBE = false;
             }
         }
-    }
-
-    public void readyFlap() {
-        if (flapReady) {
-            flapReady = false;
-            velocity = 4;
-        }
-    }
-
-    public void flap() {
-        flapReady = true;
     }
 
     private static BufferedImage upscale(final Image image) {
@@ -189,6 +162,6 @@ public class Bird {
 
     public void setBirdNetwork(Network birdNetwork) {
         this.birdNetwork = birdNetwork;
-        this.rewireNetwork();
+        this.birdNetwork.mutate();
     }
 }
