@@ -22,6 +22,7 @@ public abstract class GameFrame extends JPanel {
     private boolean clearBackBuffer = true;
 
     private int updateRate = 60;
+
     private boolean updatesRunning = true;
     private boolean renderRunning = true;
 

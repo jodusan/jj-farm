@@ -77,7 +77,18 @@ public class Bird {
         double inputValues[] = new double[]{0.5, 0.5, 0.5};
         birdNetwork.setInputValues(inputValues);
     }
-
+    public void debugMode(Graphics2D g) {
+        if(Resources.DEBUG) {
+            int leftBird = Resources.BIRD_X_POSITION-Resources.BIRD_WIDTH/2;
+            int leftTube = (int) Resources.CURRENT_TUBE.getX();
+            int topTube = (int) Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT;
+            int topBird = yPos - Resources.BIRD_HEIGHT / 2;
+            g.setColor(Color.GREEN);
+            g.drawRect(xPos,yPos,3,3);
+            g.drawRect(leftBird,topBird,Resources.BIRD_WIDTH,Resources.BIRD_HEIGHT);
+            g.drawRect(leftTube,topTube,Resources.TUBE_WIDTH,Resources.TUBE_GAP_DISTANCE);
+        }
+    }
     public void render(Graphics2D g) {
         if (dead) return;
         AffineTransform at = new AffineTransform();
@@ -94,6 +105,9 @@ public class Bird {
             }
             delay++;
         } else g.drawImage(birdImages[1], at, null);
+
+        debugMode(g);
+
     }
 
     public void update() {
@@ -120,10 +134,11 @@ public class Bird {
             dead = true;
             Resources.NO_OF_BIRDS_ALIVE--;
             fitness=Resources.fitnessPillars;
+            return;
         }
         if (Resources.IN_TUBE) {
-            int leftBird = Resources.BIRD_X_POSITION;
-            int rightBird = Resources.BIRD_X_POSITION + Resources.BIRD_WIDTH;
+            int leftBird = Resources.BIRD_X_POSITION-Resources.BIRD_WIDTH/2;
+            int rightBird = leftBird + Resources.BIRD_WIDTH;
             int leftTube = (int) Resources.CURRENT_TUBE.getX();
             int rightTube = (int) Resources.CURRENT_TUBE.getX() + Resources.TUBE_WIDTH;
             if ((leftBird <= rightTube && leftBird >= leftTube) || (rightBird <= rightTube && rightBird >= leftTube)) {
@@ -131,10 +146,11 @@ public class Bird {
                 int bottomTube = topTube + Resources.TUBE_GAP_DISTANCE;
                 int topBird = yPos - Resources.BIRD_HEIGHT / 2;
                 int bottomBird = topBird + Resources.BIRD_HEIGHT;
-                if (!(topTube < topBird) || !(bottomBird < bottomTube)) {
+                if (!(topTube < topBird && bottomBird < bottomTube)) {
                     dead = true;
                     Resources.NO_OF_BIRDS_ALIVE--;
                     fitness=Resources.fitnessPillars;
+
                 }
             } else {
                 Resources.IN_TUBE = false;

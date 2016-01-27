@@ -1,9 +1,11 @@
 package game;
 
 import engine.GameFrame;
+import neat.Network;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FlappyBird extends GameFrame {
 
@@ -21,22 +23,48 @@ public class FlappyBird extends GameFrame {
 
         startThread();
     }
+    public Network rouletteWheelSelection(int fitnessSum)
+    {
+        Random rand = new Random();
 
+        int total=0;
+        int randomSlice = rand.nextInt(fitnessSum);
+        for(Bird b: birdsList)
+        {
+            total+=b.fitness;
+            if(total>randomSlice)
+            {
+                return b.getBirdNetwork();
+            }
+
+        }
+        return null;
+    }
     public void resetLevel() {
         tubes = new Tube();
         ground = new Ground();
         Resources.reset();
 
         /* Sets up an anonimous sort function and sorts the array of birds accourding to fitness */
-        birdsList.sort((bird1, bird2) -> ((Integer) bird2.fitness).compareTo((Integer) bird1.fitness));
+        //birdsList.sort((bird1, bird2) -> ((Integer) bird2.fitness).compareTo((Integer) bird1.fitness));
 
-        for (int i = 0; i < Resources.NO_OF_BIRDS / 2; i++) {
+        int fitnessSum=0;
+
+        for(Bird b : birdsList) {
+            fitnessSum += b.fitness;
+        }
+        ArrayList<Network> newNetworkList = new ArrayList<>();
+        for (int i = 0; i < Resources.NO_OF_BIRDS; i++) {
+            newNetworkList.add(rouletteWheelSelection(fitnessSum).copy());
+        }
+        for (int i =0; i< Resources.NO_OF_BIRDS;i++)
+        {
             birdsList.get(i).reset();
-            birdsList.get(i + Resources.NO_OF_BIRDS / 2).reset();
-            birdsList.get(i + Resources.NO_OF_BIRDS / 2).setBirdNetwork(birdsList.get(i).getBirdNetwork().copy());
-            birdsList.get(i).birdNetwork.mutateChangeWeights();
+            birdsList.get(i).setBirdNetwork(newNetworkList.get(i));
+            //birdsList.get(i).birdNetwork.mutateChangeWeights();
             birdsList.get(i).birdNetwork.mutate();
         }
+
         Resources.NO_OF_BIRDS_ALIVE = Resources.NO_OF_BIRDS;
     }
 

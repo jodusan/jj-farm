@@ -293,8 +293,8 @@ public class Network {
             else if (mutationType == 3)
                 mutateAddSynapse();
         }
-        mutateChangeWeights();
     }
+
 
     public Neuron getRandomNeuron(ArrayList<Neuron> neuronList) {
         int index = randomGen.nextInt(neuronList.size());

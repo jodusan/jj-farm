@@ -63,6 +63,7 @@ public class Tube {
             }
         }
         if (!InTube) {
+
             Resources.IN_TUBE = false;
         }
     }

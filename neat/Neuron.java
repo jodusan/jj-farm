@@ -50,10 +50,6 @@ public class Neuron {
         return this.outputs;
     }
 
-    public double getOutput() {
-        return this.output;
-    }
-
     /* Use this for sensors */
     public void setOutput(double output) {
         this.output = output;

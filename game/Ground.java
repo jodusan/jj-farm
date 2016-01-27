@@ -28,6 +28,7 @@ public class Ground {
         for (int i = 0; i < groundTextures; i++) {
             xPos[i] -= 3;
             if (xPos[i] <= -Resources.FLOOR_WIDTH) {
+
                 xPos[i] = 1344;
             }
         }

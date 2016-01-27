@@ -26,9 +26,9 @@ public class Synapse implements Cloneable {
         this.weight = weight;
     }
 
-    public void setSourceNeuron(Neuron sourceNeuron) {
-        this.sourceNeuron = sourceNeuron;
-    }
+
+
+
 
     public void setDestinationNeuron(Neuron destinationNeuron) {
         this.destinationNeuron = destinationNeuron;

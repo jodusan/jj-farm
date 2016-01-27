@@ -26,10 +26,11 @@ public class Resources {
     public static BufferedImage TUBE_DOWN_IMAGE;
     public static BufferedImage[] BIRD_IMAGES;
 
+
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
-    public static final int BIRD_WIDTH = 72;
-    public static final int BIRD_HEIGHT = 52;
+    public static final int BIRD_WIDTH = 44;
+    public static final int BIRD_HEIGHT = 36;
     public static final int FLOOR_WIDTH = 672;
     public static final int FLOOR_HEIGHT = 224;
     public static final int FLOOR_OFFSET = 96;
@@ -41,6 +42,7 @@ public class Resources {
     public static final int BIRD_X_POSITION = 100;
     public static final int BIRD_Y_POSITION = 100;
     public static final int NO_OF_BIRDS = 200;
+    public static final boolean DEBUG = false;
 
     public static boolean IN_TUBE = false;
     public static Point CURRENT_TUBE = new Point(0, 0);
