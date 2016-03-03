@@ -5,4 +5,5 @@ When my friend and me saw [this](https://www.youtube.com/watch?v=qv6UVOQ0F44) vi
 This is a dumbed down version of NEAT that still needs speciation so the network could do crossover. Because of this it will sometimes converge on a local optimum. But when it converges on a global optimum it easily passes over 50 columns.
 
 Video showing the birds evolving: 
+
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/L6bbFgjkqK0/0.jpg)](http://www.youtube.com/watch?v=L6bbFgjkqK0)
