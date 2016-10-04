@@ -32,8 +32,8 @@ Authored and maintained by Dušan Josipović & Nikola Jovičić.
 > GitHub [@dulex123](https://github.com/dulex123) &nbsp;&middot;&nbsp;
 > Twitter [@josipovicd](https://twitter.com/josipovicd)
 
-> [nikolajovicic.com](http://jovicicnikola.com/)
-> GitHub [@killx94](https://github.com/killx94) &nbsp;&middot;&nbsp;
+> [nikolajovicic.com](http://jovicicnikola.com/)&nbsp;&middot;&nbsp;
+> GitHub [@killx94](https://github.com/killx94) 
 
 
 [MIT License]: http://mit-license.org/
