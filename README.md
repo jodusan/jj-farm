@@ -13,6 +13,7 @@ javac game/FlappyBird.java
 ```
 
 # Run
+When running on Ubuntu there will be a little bit of tearing.
 ```sh
 # Windows
 java game.FlappyBird
