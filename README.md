@@ -18,7 +18,22 @@ java game.FlappyBird
 ```
 
 # Notes
- - It is not guaranteed that birds will evolve to play the game successfuly 
+ - It is not guaranteed that birds will evolve to play the game successfuly
  - If you are interested in NEAT take a look at :
    - "Handbook of Neuroevolution Through Erlang" - Gene I. Sher
    - "Ai Techniques For Game Programming" - Mat Buckland
+   
+# Credits
+
+Released under the [MIT License].<br>
+Authored and maintained by Dušan Josipović & Nikola Jovičić.
+
+> [sudo.engineer](http://sudo.engineer) &nbsp;&middot;&nbsp;
+> GitHub [@dulex123](https://github.com/dulex123) &nbsp;&middot;&nbsp;
+> Twitter [@josipovicd](https://twitter.com/josipovicd)
+
+> [nikolajovicic.com](http://jovicicnikola.com/)
+> GitHub [@killx94](https://github.com/killx94) &nbsp;&middot;&nbsp;
+
+
+[MIT License]: http://mit-license.org/
