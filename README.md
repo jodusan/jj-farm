@@ -1,3 +1,2 @@
 # An application of NEAT in flappy bird
- 
- Readme needs to be updated !
+ ![jj-farm](https://media.giphy.com/media/R5NDdelv6dzpe/giphy.gif)
