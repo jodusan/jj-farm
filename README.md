@@ -14,7 +14,11 @@ javac game/FlappyBird.java
 
 # Run
 ```sh
+# Windows
 java game.FlappyBird
+
+# For much smoother experience on *nix run with opengl 
+java -Dsun.java2d.opengl=true game.FlappyBird
 ```
 
 # Notes
