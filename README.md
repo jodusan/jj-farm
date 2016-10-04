@@ -1,9 +1,5 @@
 # An application of NEAT in flappy bird
-FlappyBird played by NEAT. Every bird has its own ANN and a fitness score that is measured by distance/time passed.
-
-For each generation top 50% of population is preserved and possibly mutated while the rest is discarded.
-
-Mutations can change ANN of each bird in various ways. 
+FlappyBird played by NEAT. Every bird has its own ANN and a fitness score that is measured by distance/time passed. For each generation top 50% of population is preserved and possibly mutated while the rest is discarded. Mutations can change ANN of each bird in various ways. 
 
  ![jj-farm](https://media.giphy.com/media/R5NDdelv6dzpe/giphy.gif)
 
