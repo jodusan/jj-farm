@@ -33,7 +33,7 @@ java -Dsun.java2d.opengl=true game.FlappyBird
 Released under the [MIT License].<br>
 Authored and maintained by Dušan Josipović & Nikola Jovičić.
 
-> [sudo.engineer](http://sudo.engineer) &nbsp;&middot;&nbsp;
+> Blog [dulex123.github.io](http://dulex123.github.io) &nbsp;&middot;&nbsp;
 > GitHub [@dulex123](https://github.com/dulex123) &nbsp;&middot;&nbsp;
 > Twitter [@josipovicd](https://twitter.com/josipovicd)
 
