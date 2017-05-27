@@ -52,7 +52,7 @@ public class FlappyBird extends GameFrame {
 
         tubes.render(g);
         ground.render(g);
-        g.drawString("Birds alive: " + Resources.NO_OF_BIRDS_ALIVE + " Columns passed: " + Resources.fitnessPillars, 50, 50);
+        g.drawString("Birds alive: " + Resources.NO_OF_BIRDS_ALIVE + " Fitness: " + Resources.fitnessPillars, 50, 50);
     }
 
     @Override
