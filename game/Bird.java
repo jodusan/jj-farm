@@ -101,7 +101,7 @@ public class Bird {
         if (dead) return;
 
         double birdYPossition = (double)yPos/Resources.HEIGHT;
-        double nextTubeHeigth = ((Resources.nextTube.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE/2)-560+Resources.TUBE_HEIGHT)/(-260+560); // 80-380
+        double nextTubeHeigth = ((Resources.nextTube.getY() + Resources.TUBE_HEIGHT + Resources.TUBE_GAP_DISTANCE/2)-560+Resources.TUBE_HEIGHT)/(700); // 80-380
         double distanceFromNextTube = ((Resources.nextTube.getX() - Resources.BIRD_X_POSITION)%300)/300;
         double inputs[] = new double[]{birdYPossition-nextTubeHeigth,nextTubeHeigth-birdYPossition,distanceFromNextTube};
         birdNetwork.setInputValues(inputs);
@@ -124,11 +124,11 @@ public class Bird {
         if (Resources.IN_TUBE) {
             int leftBird = Resources.BIRD_X_POSITION;
             int rightBird = Resources.BIRD_X_POSITION + Resources.BIRD_WIDTH;
-            int leftTube = (int) Resources.CURRENT_TUBE.getX();
-            int rightTube = (int) Resources.CURRENT_TUBE.getX() + Resources.TUBE_WIDTH;
+            int leftTube = (int) Resources.CURRENT_TUBE.getX()+50;
+            int rightTube = (int) Resources.CURRENT_TUBE.getX() + Resources.TUBE_WIDTH-20;
             if ((leftBird <= rightTube && leftBird >= leftTube) || (rightBird <= rightTube && rightBird >= leftTube)) {
-                int topTube = (int) Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT;
-                int bottomTube = topTube + Resources.TUBE_GAP_DISTANCE;
+                int topTube = (int) Resources.CURRENT_TUBE.getY() + Resources.TUBE_HEIGHT-15;
+                int bottomTube = topTube + Resources.TUBE_GAP_DISTANCE+30;
                 int topBird = yPos - Resources.BIRD_HEIGHT / 2;
                 int bottomBird = topBird + Resources.BIRD_HEIGHT;
                 if (!(topTube < topBird) || !(bottomBird < bottomTube)) {
